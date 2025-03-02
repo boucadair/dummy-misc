@@ -269,10 +269,12 @@ module ietf-ospf-sr-mpls {
     container prefix-sid-sub-tlvs {
       description
         "Prefix SID sub-TLV.";
-      list prefix-sid-sub-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "Prefix SID sub-TLV.";
-        container prefix-sid-flags {
+      //Med: No need to repeat the prefix
+        container flags {
           leaf-list flag {
             type identityref {
               base prefix-sid-flag;
@@ -330,7 +332,8 @@ module ietf-ospf-sr-mpls {
     container extended-prefix-range-tlvs {
       description
         "List of range of prefixes.";
-      list extended-prefix-range-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "Range of prefixes.";
 
@@ -341,13 +344,14 @@ module ietf-ospf-sr-mpls {
           description
             "Length of prefix in bits.";
         }
-        leaf af {
+        //Med: expand AF as this is anyway how the implem went "address-family" (cisco example)
+        leaf address-family {
           type iana-rt-types:address-family;
           description
             "Address family for the prefix.";
         }
 
-        //Med: I guess we should reminde that
+        //Med: I guess we should remind that
         // "The Range Size MUST NOT exceed the number of
         // prefixes that could be satisfied by the Prefix Length without including
         // the IPv4 multicast address range (224.0.0.0/3)."
@@ -409,7 +413,8 @@ module ietf-ospf-sr-mpls {
     container sid-range-tlvs {
       description
         "List of SID range TLVs.";
-      list sid-range-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "SID range TLV.";
         leaf range-size {
@@ -432,7 +437,8 @@ module ietf-ospf-sr-mpls {
     container local-block-tlvs {
       description
         "List of SR Local Block (SRLB) TLVs.";
-      list local-block-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "SRLB TLV.";
         leaf range-size {
@@ -478,7 +484,8 @@ module ietf-ospf-sr-mpls {
     container prefix-sid-sub-tlvs {
       description
         "Prefix SID sub-TLV.";
-      list prefix-sid-sub-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "Prefix SID sub-TLV.";
         container ospfv3-prefix-sid-flags {
@@ -537,7 +544,8 @@ module ietf-ospf-sr-mpls {
           description
             "Length of prefix in bits.";
         }
-        leaf af {
+        //Med: better to expand
+        leaf address-family {
           type iana-rt-types:address-family;
           description
             "Address family for the prefix.";
@@ -568,10 +576,13 @@ module ietf-ospf-sr-mpls {
     container adj-sid-sub-tlvs {
       description
         "Adj-SID optional sub-TLVs.";
-      list adj-sid-sub-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "List of Adj-SID sub-TLVs.";
-        container adj-sid-flags {
+        //Med: No need to repeat the prefix
+        container flags {
+        //Med: No need to repeat the adj-sid prefix
           leaf-list flag {
             type identityref {
               base adj-sid-flag;
@@ -619,8 +630,10 @@ module ietf-ospf-sr-mpls {
       list lan-adj-sid-sub-tlv {
         description
           "List of LAN Adj-SID sub-TLVs.";
-        container lan-adj-sid-flags {
-          leaf-list flags {
+       //Med: No need to repeat the prefix
+        container flags {
+          //Med: singular should be used
+          leaf-list flag {
             type identityref {
               base adj-sid-flag;
             }
@@ -940,10 +953,12 @@ module ietf-ospf-sr-mpls {
     container adj-sid-sub-tlvs {
       description
         "Adj-SID optional sub-TLVs.";
-      list adj-sid-sub-tlv {
+      //Med: No need to repeat the prefix
+      list tlv {
         description
           "List of Adj-SID sub-TLVs.";
-        container adj-sid-flags {
+      //Med: No need to repeat the prefix
+        container flags {
           leaf-list flag {
             type identityref {
               base adj-sid-flag;
@@ -988,10 +1003,12 @@ module ietf-ospf-sr-mpls {
     container lan-adj-sid-sub-tlvs {
       description
         "LAN Adj-SID optional sub-TLVs.";
-      list lan-adj-sid-sub-tlv {  //Med: can factorize with prev, except neighbor-router-id 
+      //Med: No need to repeat the prefix
+      list tlv {  //Med: can factorize with prev, except neighbor-router-id 
         description
           "List of LAN Adj-SID sub-TLVs.";
-        container lan-adj-sid-flags {
+        //Med: No need to repeat the prefix
+        container flags {
           leaf-list flag {
             type identityref {
               base adj-sid-flag;
