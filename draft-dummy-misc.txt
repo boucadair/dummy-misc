@@ -2,7 +2,7 @@
 
 
 
-WG Working Group                                              Y. N. Here
+Network Working Group                                                Med
 Internet-Draft                                    Your Organization Here
 Intended status: Informational                              2 March 2025
 Expires: 3 September 2025
@@ -20,15 +20,12 @@ About This Document
    This note is to be removed before publishing as an RFC.
 
    The latest revision of this draft can be found at
-   https://example.com/LATEST.  Status information for this document may
-   be found at https://datatracker.ietf.org/doc/draft-dummy-misc/.
-
-   Discussion of this document takes place on the WG Working Group
-   mailing list (mailto:WG@example.com), which is archived at
-   https://example.com/WG.
+   https://boucadair.github.io/dummy-misc/draft-dummy-misc.html.  Status
+   information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-dummy-misc/.
 
    Source for this draft and an issue tracker can be found at
-   https://github.com/USER/REPO.
+   https://github.com/boucadair/dummy-misc.
 
 Status of This Memo
 
@@ -108,6 +105,6 @@ Acknowledgments
 
 Author's Address
 
-   Your Name Here
+   Med
    Your Organization Here
-   Email: your.email@example.com
+   Email: mohamed.boucadair@orange.com
