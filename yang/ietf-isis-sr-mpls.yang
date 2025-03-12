@@ -77,9 +77,12 @@ module ietf-isis-sr-mpls {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.";
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2025-01-29 {
     description
@@ -276,6 +279,8 @@ module ietf-isis-sr-mpls {
       "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
+  // Med: Features should be before identities. 
+  // Med: You may run "pyang -f yang --yang-canonical"   
   /* Features */
 
   feature remote-lfa-sr {
