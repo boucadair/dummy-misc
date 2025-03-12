@@ -82,9 +82,12 @@ module ietf-ospf-sr-mpls {
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.";
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2025-01-03 {
     description
@@ -108,6 +111,8 @@ module ietf-ospf-sr-mpls {
     reference
       "RFC IIII: Topology-Independent Fast Reroute using Segment
                  Routing";
+     //RFC Editor: Please replace IIII with the RFC number
+     //assigned to draft-ietf-rtgwg-segment-routing-ti-lfa
   }
 
   identity prefix-sid-flag {
