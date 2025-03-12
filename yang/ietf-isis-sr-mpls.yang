@@ -6,38 +6,38 @@ module ietf-isis-sr-mpls {
   import ietf-routing {
     prefix rt;
     reference
-      "RFC 8349 - A YANG Data Model for Routing
-                  Management (NMDA Version)";
+      "RFC 8349: A YANG Data Model for Routing
+                 Management (NMDA Version)";
   }
   import ietf-inet-types {
     prefix inet;
     reference
-      "RFC 6991 - Common YANG Data Types";
+      "RFC 6991: Common YANG Data Types";
   }
   import ietf-segment-routing-common {
     prefix sr-cmn;
     reference
-      "RFC 9020 - YANG Data Model for Segment Routing";
+      "RFC 9020: YANG Data Model for Segment Routing";
   }
   import ietf-segment-routing-mpls {
     prefix sr-mpls;
     reference
-      "RFC 9020 - YANG Data Model for Segment Routing";
+      "RFC 9020: YANG Data Model for Segment Routing";
   }
   import ietf-isis {
     prefix isis;
     reference
-      "RFC 9130 - YANG Data Model for IS-IS Protocol";
+      "RFC 9130: YANG Data Model for IS-IS Protocol";
   }
   import iana-routing-types {
     prefix iana-rt-types;
     reference
-      "RFC 8294 - Common YANG Data Types for the Routing Area";
+      "RFC 8294: Common YANG Data Types for the Routing Area";
   }
   import ietf-routing-types {
     prefix rt-types;
     reference
-      "RFC 8294 - Common YANG Data Types for the Routing Area";
+      "RFC 8294: Common YANG Data Types for the Routing Area";
   }
 
   organization
@@ -57,13 +57,12 @@ module ietf-isis-sr-mpls {
      Author:    Ing-Wher Chen
                 <mailto:ingwherchen@mitre.org>
      Author:    Jeff Tantsura
-                <mailto:jefftant.ietf@gmail.com>
-    ";
+                <mailto:jefftant.ietf@gmail.com>";
   description
     "The YANG module defines the generic configuration and
-     operational state for Segment Routing ISIS extensions for the
-     MPLS data plane, which is common across all of the vendor
-     implementations.
+     operational state for Segment Routing (SR) IS-IS extensions
+     for the MPLS data plane, which is common across all of the
+     vendor implementations.
 
      This YANG model conforms to the Network Management
      Datastore Architecture (NMDA) as described in RFC 8342.
@@ -78,20 +77,15 @@ module ietf-isis-sr-mpls {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX
-     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
-     for full legal notices.
-
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
      NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
      they appear in all capitals, as shown here.
 
-     This version of this YANG module is part of RFC XXXX;
-     see the RFC itself for full legal notices.";
-  reference
-    "RFC XXXX";
+     This version of this YANG module is part of RFC XXXX
+     (https://www.rfc-editor.org/info/rfcXXXX); see the RFC itself
+     for full legal notices.";
 
   revision 2025-01-29 {
     description
@@ -105,156 +99,194 @@ module ietf-isis-sr-mpls {
 
   identity sr-capability {
     description
-      "Base identity for ISIS SR-Capabilities sub-TLV flags";
+      "Base identity for IS-IS SR-Capabilities sub-TLV flags.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3";
   }
 
   identity mpls-ipv4 {
     base sr-capability;
     description
-      "If set, then the router is capable of
-       processing SR MPLS encapsulated IPv4 packets
-       on all interfaces.";
+      "Indicates that the router is capable of processing
+       SR-MPLS-encapsulated IPv4 packets on all interfaces.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3.1";
   }
 
   identity mpls-ipv6 {
     base sr-capability;
     description
-      "If set, then the router is capable of
-       processing SR MPLS encapsulated IPv6 packets
-       on all interfaces.";
+      "Indicates that the router is capable of processing
+       SR-MPLS-encapsulated IPv6 packets on all interfaces.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3.1";
   }
 
   identity prefix-sid-flag {
     description
-      "Base identity for prefix SID sub-TLV flags.";
+      "Base identity for Prefix-SID sub-TLV flags.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 2.1";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1";
   }
 
   identity r-flag {
     base prefix-sid-flag;
     description
       "Re-advertisement Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.2";
   }
 
   identity n-flag {
     base prefix-sid-flag;
     description
       "Node-SID Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.2";
   }
 
   identity p-flag {
     base prefix-sid-flag;
     description
-      "No-PHP (No Penultimate Hop-Popping) Flag.";
+      "No Penultimate Hop-Popping (No-PHP) Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.3";
   }
 
   identity e-flag {
     base prefix-sid-flag;
     description
       "Explicit NULL Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.3";
   }
 
   identity v-flag {
     base prefix-sid-flag;
     description
       "Value Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.1";
   }
 
   identity l-flag {
     base prefix-sid-flag;
     description
       "Local Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1.1.1";
   }
 
   identity adj-sid-flag {
     description
       "Base identity for Adj-SID sub-TLV flags.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 2.2";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity f-flag {
     base adj-sid-flag;
     description
       "Address-Family flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity b-flag {
     base adj-sid-flag;
     description
       "Backup flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity vi-flag {
     base adj-sid-flag;
     description
-      "Value/Index flag.";
+      "Value/Index flag. Corresponds to the V-Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity lo-flag {
     base adj-sid-flag;
     description
-      "Local flag.";
+      "Local flag. Corresponds to the Adj-SID L-Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity s-flag {
     base adj-sid-flag;
     description
       "Group flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity pe-flag {
     base adj-sid-flag;
     description
-      "Persistent flag.";
+      "Persistent flag. Corresponds to the Adj-SID P-Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.2";
   }
 
   identity sid-binding-flag {
     description
-      "Base identity for sid binding tlv flags.";
+      "Base identity for SID binding TLV flags.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 2.4";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   identity af-flag {
     base sid-binding-flag;
     description
-      "Address-Family flag.";
+      "Address-Family flag. Corresponds to the SID/Label Binding
+       F-Flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   identity m-flag {
     base sid-binding-flag;
     description
       "Mirror Context flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   identity sf-flag {
     base sid-binding-flag;
     description
-      "S flag. If set, the binding label TLV should be flooded
-       across the entire routing domain.";
+      "Corresponds to the SID/Label Binding S-Flag. Indicates that
+       the SID/Label Binding TLV should be flooded across the entire
+       routing domain.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   identity d-flag {
     base sid-binding-flag;
     description
       "Leaking flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   identity a-flag {
     base sid-binding-flag;
     description
       "Attached flag.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.4";
   }
 
   /* Features */
 
   feature remote-lfa-sr {
     description
-      "Enhance rLFA to use SR path.";
+      "Enhances rLFA to use SR path.";
     reference
       "RFC 8102: Remote-LFA Node Protection and Manageability";
   }
@@ -273,10 +305,13 @@ module ietf-isis-sr-mpls {
   grouping sid-sub-tlv {
     description
       "SID/Label sub-TLV grouping.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.3";
     container sid-sub-tlv {
       description
         "Used to advertise the SID/Label associated with a
          prefix or adjacency.";
+      //Med: A type would be better instead fo inferring its from the length
       leaf length {
         type uint8;
         description
@@ -287,7 +322,7 @@ module ietf-isis-sr-mpls {
       leaf sid {
         type uint32;
         description
-          "Segment Identifier (SID) - A 20 bit label or 32 bit SID.
+          "Segment Identifier (SID). A 20-bit label or 32-bit SID.
            If the length is set to 3, then the 20 rightmost bits
            represent an MPLS label. If the length is set to 4, then
            the value is a 32-bit index.";
@@ -299,7 +334,7 @@ module ietf-isis-sr-mpls {
     description
       "SR capability grouping.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 3";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3";
     container sr-capability {
       description
         "Segment Routing capability.";
@@ -316,7 +351,7 @@ module ietf-isis-sr-mpls {
       }
       container global-blocks {
         description
-          "Segment Routing Global Blocks.";
+          "Segment Routing Global Blocks (SRGB).";
         list global-block {
           description
             "Segment Routing Global Block.";
@@ -337,13 +372,14 @@ module ietf-isis-sr-mpls {
     container sr-algorithms {
       description
         "All SR algorithms.";
-      leaf-list sr-algorithm {
+      //Med: No need to repeat the prefix of the parent node
+      leaf-list algorithm {
         type identityref {
           base sr-cmn:prefix-sid-algorithm;
         }
         description
-          "The Segment Routing (SR) algorithms that the router is
-           currently using.";
+          "The SR algorithms that the router is currently
+           using.";
       }
     }
   }
@@ -352,11 +388,12 @@ module ietf-isis-sr-mpls {
     description
       "SR Local Block grouping.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 3.3";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3.3";
     container local-blocks {
       description
         "List of SRLBs.";
-      list local-block {
+      //Med: No need to repeat the prefix of the parent node
+      list block {
         description
           "Segment Routing Local Block.";
         leaf range-size {
@@ -371,17 +408,25 @@ module ietf-isis-sr-mpls {
 
   grouping srms-preference {
     description
-      "The SRMS preference TLV is used to advertise
-       a preference associated with the node that acts
-       as an SR Mapping Server.";
+      "The Segment Routing Mapping Server (SRMS) preference
+       TLV is used to advertise a preference associated with
+       the node that acts as an SRMS.";
+    reference
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 3.4
+       RFC 8661: Segment Routing MPLS Interworking with LDP,
+                 Section 3.2.1";
     container srms-preference {
       description
-        "SRMS Preference TLV.";
+        "SRMS Preference.";
       leaf preference {
         type uint8;
         description
-          "SRMS preference TLV, value from 0 to 255 with
+          "SRMS preference, value from 0 to 255 with
            255 being the most preferred.";
+      //Med: Add a pointer to justify why 255 is indicated as such
+      reference
+        "RFC 8661: Segment Routing MPLS Interworking with LDP,
+                   Section 3.2.3";
       }
     }
   }
@@ -392,6 +437,7 @@ module ietf-isis-sr-mpls {
     list adjacency-sid {
       key "value";
       config false;
+      //Med: Consider expanding the description
       leaf value {
         type uint32;
         description
@@ -400,39 +446,39 @@ module ietf-isis-sr-mpls {
       leaf address-family {
         type iana-rt-types:address-family;
         description
-          "Address-family associated with the
-           segment ID";
+          "Address-Family associated with the SID.";
       }
       leaf weight {
         type uint8;
         description
-          "Weight associated with
-           the adjacency SID.";
+          "Weight associated with the adjacency SID.";
       }
       leaf protection-requested {
         type boolean;
         description
-          "Describe if the adjacency SID
-           must be protected.";
+          "Describes whether the adjacency SID must be protected.
+           It is protected, if set.";
       }
       description
-        "List of adjacency Segment IDs.";
+        "List of adjacency SIDs.";
     }
   }
 
   grouping prefix-sid-sub-tlv {
     description
       "This grouping defines segment routing prefix segment
-       identifier (prefix-sid) sub-tlv.";
+       identifier (prefix-sid) sub-TLV.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing, Section 2.1";
+      "RFC 8667: IS-IS Extensions for Segment Routing, Section 2.1";
     container prefix-sid-sub-tlvs {
       description
-        "PrefixSID sub-tlvs.";
-      list prefix-sid-sub-tlv {
+        "Prefix-SID sub-TLVs.";
+      //Med: no need to repeat the prefix of the parent node
+      list prefix-sid {
         key "sid";
         container prefix-sid-flags {
-          leaf-list flags {
+          //Med: Use singular per the 8407bs guidance.
+          leaf-list flag {
             type identityref {
               base prefix-sid-flag;
             }
@@ -440,8 +486,7 @@ module ietf-isis-sr-mpls {
               "Prefix SID sub-TLV flags.";
           }
           description
-            "Describes flags associated with the
-             segment ID.";
+            "Describes flags associated with the SID.";
         }
         leaf algorithm {
           type identityref {
@@ -456,19 +501,19 @@ module ietf-isis-sr-mpls {
             "Value of the prefix-SID.";
         }
         description
-          "List of prefix-sid sub-tlvs.";
+          "List of prefix-sid sub-TLVs.";
       }
     }
   }
 
   grouping adjacency-segment-id {
     description
-      "This grouping defines segment routing extensions
-       for adjacencies.";
+      "This grouping defines SR extensions for adjacencies.";
     list sid-list {
       key "sid";
       container adj-sid-flags {
-        leaf-list flags {
+        //Med: Use singular per 8407bis guidance.
+        leaf-list flag {
           type identityref {
             base adj-sid-flag;
           }
@@ -506,16 +551,17 @@ module ietf-isis-sr-mpls {
       type inet:ip-prefix;
       description
         "The prefix represents the Forwarding Equivalence
-         Class at the tail end of the advertised path.";
+         Class (FEC) at the tail end of the advertised path.";
     }
     leaf range {
       type uint16;
       description
-        "Provides the ability to specify a range of addresses
-         and their associated prefix-sids.";
+        "Specifies a range of addresses and their associated
+         Prefix-SIDs.";
     }
     container sid-binding-flags {
-      leaf-list flags {
+      //Med: Use singular
+      leaf-list flag {
         type identityref {
           base sid-binding-flag;
         }
@@ -525,30 +571,35 @@ module ietf-isis-sr-mpls {
       description
         "Binding TLV flags.";
     }
-    list prefix-sid-sub-tlvs {
+    //Med: Use singular
+    //Med: No need to reason with TLV for managing the functionality
+    list prefix-sid {
       uses prefix-sid-sub-tlv;
       description
-        "List of prefix-sid sub-tlvs.";
+        "List of Prefix-SID sub-TLVs.";
       reference
-        "RFC 8667 - IS-IS Extensions for Segment Routing,
-         Section 2.4.4";
+        "RFC 8667: IS-IS Extensions for Segment Routing,
+                   Section 2.4.4";
     }
-    list sid-sub-tlvs {
+    //Med: Use singular
+    //Med: No need to reason with TLV for managing the functionality
+    list sid {
       uses sid-sub-tlv;
       description
-        "List of prefix-sid sub-tlvs.";
+        "List of Prefix-SIDs.";
       reference
-        "RFC 8667 - IS-IS Extensions for Segment Routing,
-         Section 2.4.5";
+        "RFC 8667: IS-IS Extensions for Segment Routing,
+                   Section 2.4.5";
     }
     uses isis:unknown-tlvs;
     description
       "SID/Label binding TLV, type 149.";
     reference
-      "RFC 8667 - IS-IS Extensions for Segment Routing,
-       Section 2.4";
+      "RFC 8667: IS-IS Extensions for Segment Routing,
+                 Section 2.4";
   }
 
+  //Med: This can be used for reporting as well :-) Please rename.
   /* Configuration */
 
   augment "/rt:routing/"
@@ -556,11 +607,12 @@ module ietf-isis-sr-mpls {
         + "/isis:isis" {
     when "derived-from-or-self(../rt:type, 'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when
+         used.";
     }
     description
-      "This augments ISIS protocol configuration
-       with segment routing for the MPLS data plane.";
+      "This augments IS-IS protocol configuration with SR for
+       the MPLS data plane.";
     uses sr-mpls:sr-control-plane;
     container protocol-srgb {
       if-feature "sr-mpls:protocol-srgb";
@@ -568,7 +620,7 @@ module ietf-isis-sr-mpls {
       description
         "Per-protocol Segment Routing Global Block (SRGB).";
       reference
-        "RFC 8402 - Segment Routing Architecture, Section 2";
+        "RFC 8402: Segment Routing Architecture, Section 2";
     }
   }
 
@@ -577,11 +629,10 @@ module ietf-isis-sr-mpls {
         + "/isis:isis/isis:interfaces/isis:interface" {
     when "derived-from-or-self(../../../rt:type, 'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments ISIS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol configuration
-       with segment routing.";
+      "This augments ISIS protocol configuration with SR.";
     uses sr-mpls:igp-interface {
       augment "segment-routing/adjacency-sid/adj-sids" {
         when "../../../isis:interface-type = 'broadcast'" {
@@ -589,7 +640,7 @@ module ietf-isis-sr-mpls {
             "This augments broadcast interface.";
         }
         description
-          "This augments LAN interface adj-sid with system-id.";
+          "This augments LAN interface Adj-SID with system-id.";
         leaf neighbor-system-id {
           type isis:system-id;
           mandatory true;
@@ -607,17 +658,17 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments ISIS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS interface IP FRR with TILFA.";
+      "This augments IS-IS interface IP FRR with TI-LFA.";
     container ti-lfa {
       if-feature "ti-lfa";
       leaf enabled {
         type boolean;
         default "false";
         description
-          "Enables TI-LFA computation.";
+          "Enables TI-LFA computation, if set to 'true'.";
       }
       container selection-tie-breakers {
         container node-protection {
@@ -631,7 +682,7 @@ module ietf-isis-sr-mpls {
                a lower priority being more preferred.";
           }
           description
-            "Enable node protection as a TI-LFA path
+            "Enables node protection as a TI-LFA path
              selection tie-breaker. A path providing node
              protection will be selected over one that
              doesn't provide node protection.";
@@ -647,19 +698,18 @@ module ietf-isis-sr-mpls {
                a lower priority being more preferred.";
           }
           description
-            "Enable SRLG (Shared Resource Link Group)
-             disjoint  as a TI-LFA path selection tie-breaker.
+            "Enable Shared Resource Link Group (SRLG)
+             disjoint as a TI-LFA path selection tie-breaker.
              A path providing node a disjoint path for SRLG
              links from the primary path will be selected over
              one that doesn't provide an SRLG disjoint path.";
         }
         description
-          "Configure path selection tie-breakers and their
+          "Configures path selection tie-breakers and their
            respective priorities for the TI-LFA computation.";
       }
       description
-        "Topology Independent Loop Free Alternate
-         (TI-LFA) support.";
+        "TI-LFA support.";
     }
   }
 
@@ -670,10 +720,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS interface level-1 IP FRR with TILFA.";
+      "This augments IS-IS interface level-1 IP FRR with TI-LFA.";
     container ti-lfa {
       if-feature "ti-lfa";
       leaf enabled {
@@ -694,17 +744,17 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS IP interface level-2 FRR with TILFA.";
+      "This augments IS-IS IP interface level-2 FRR with TI-LFA.";
     container ti-lfa {
       if-feature "ti-lfa";
       leaf enabled {
         type boolean;
         default "false";
         description
-          "Enables TI-LFA computation.";
+          "Enables TI-LFA computation, if set to 'true'.";
       }
       description
         "TI-LFA configuration.";
@@ -718,7 +768,7 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
       "This augments ISIS remoteLFA config with
@@ -728,9 +778,11 @@ module ietf-isis-sr-mpls {
       type boolean;
       default "false";
       description
-        "Force remote LFA to use segment routing path instead of LDP
+        "Force remote LFA to use an SR path instead of the LDP
          path. The value of this leaf is in effect only when
-         remote-lfa is enabled.";
+         rLFA is enabled."; 
+         //Med: The use of the feature means this is supported not
+         //      enabled. Please update the description of the feature        
     }
   }
 
@@ -743,11 +795,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol configuration
-       with segment routing.";
+      "This augments IS- IS protocol configuration with SR.";
     uses adjacency-state;
   }
 
@@ -758,10 +809,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB router capability.";
+      "This augments IS-IS protocol LSDB router capability.";
     uses sr-capability;
     uses sr-algorithm;
     uses srlb;
@@ -775,10 +826,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments ISIS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB neighbor.";
+      "This augments IS-IS protocol LSDB neighbor.";
     uses adjacency-segment-id;
   }
 
@@ -789,10 +840,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB neighbor.";
+      "This augments IS-IS protocol LSDB neighbor.";
     uses adjacency-segment-id;
   }
 
@@ -803,7 +854,7 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
       "This augments ISIS protocol LSDB prefix.";
@@ -817,7 +868,7 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
       "This augments ISIS protocol LSDB prefix.";
@@ -831,10 +882,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB prefix.";
+      "This augments IS-IS protocol LSDB prefix.";
     uses prefix-sid-sub-tlv;
   }
 
@@ -845,10 +896,10 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB prefix.";
+      "This augments IS-IS protocol LSDB prefix.";
     uses prefix-sid-sub-tlv;
   }
 
@@ -858,38 +909,39 @@ module ietf-isis-sr-mpls {
     when "derived-from-or-self(../../../../rt:type,"
        + "'isis:isis')" {
       description
-        "This augments ISIS routing protocol when used";
+        "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol LSDB.";
+      "This augments IS-IS protocol LSDB.";
     container sid-binding-tlvs {
       list sid-binding-tlv {
         key "prefix";
         uses sid-binding-tlv;
         description
-          "Sid/label binding TLV, type 149.";
+          "SID/label binding TLV, type 149.";
       }
       description
         "List of sid/label binding TLVs.";
     }
     container mt-sid-binding-tlvs {
-      list mt-sid-binding-tlv {
+      //Med: No need to repeat the parent prefix here.
+      list tlv {
         key "prefix mt-id";
         uses sid-binding-tlv;
         leaf mt-id {
           type uint16;
           description
-            "A 12-bit field containing the non-zero ID
+            "A 12-bit value containing the non-zero ID
              of the topology.";
         }
         description
           "Multi-Topology SID/Label binding TLV, type 150.";
         reference
-          "RFC 8667 - IS-IS Extensions for Segment Routing,
-           Section 2.5";
+          "RFC 8667: IS-IS Extensions for Segment Routing,
+                     Section 2.5";
       }
       description
-        "List of multi-topology sid/label binding TLVs.";
+        "List of multi-topology SID/Label Binding TLVs.";
     }
   }
 }
