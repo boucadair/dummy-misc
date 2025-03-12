@@ -295,8 +295,10 @@ module ietf-isis-sr-mpls {
       "Topology-Independent Loop-Free Alternate (TI-LFA)
        computation using segment routing.";
     reference
-      "draft-ietf-rtgwg-segment-routing-ti-lfa -
-       Topology-Independent Fast Reroute using Segment Routing";
+      "RFC IIII: Topology-Independent Fast Reroute using Segment
+                 Routing";
+     //RFC Editor: Please replace IIII with the RFC number
+     //assigned to draft-ietf-rtgwg-segment-routing-ti-lfa
   }
 
   /* Groupings */
