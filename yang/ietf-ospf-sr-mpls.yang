@@ -106,7 +106,7 @@ module ietf-ospf-sr-mpls {
 
   feature ti-lfa {
     description
-      "Indicates supporte for Topology-Independent Loop-Free
+      "Indicates support for Topology-Independent Loop-Free
        Alternate (TI-LFA) computation using SR.";
     reference
       "RFC IIII: Topology-Independent Fast Reroute using Segment
@@ -177,8 +177,7 @@ module ietf-ospf-sr-mpls {
   identity ia-flag {
     base extended-prefix-range-flag;
     description
-      "Inter-Area flag. If set, advertisement is of
-       inter-area type.";
+      "Inter-Area flag."; //Med removed the 'if set, ..' as this does not make sense
     reference
       "RFC 8665: OSPF Extensions for Segment Routing, Section 4";
   }
@@ -257,7 +256,7 @@ module ietf-ospf-sr-mpls {
       leaf sid {
         type uint32;
         description
-          "Segment Identifier (SID) - A 20-bit label or
+          "Segment Identifier. A 20-bit label or
            32-bit SID. If the length is set to 3, then the
            20 rightmost bits represent a label. If the length
            is set to 4, then the value represents a 32-bit SID.";
@@ -285,7 +284,7 @@ module ietf-ospf-sr-mpls {
               base prefix-sid-flag;
             }
             description
-              "Prefix SID Sub-TLV flags.";
+              "Prefix SID sub-TLV flags.";
           }
           description
             "SID Flags.";
@@ -295,6 +294,7 @@ module ietf-ospf-sr-mpls {
           description
             "Multi-topology ID. Topologies range from 0-127 and
              return of any other value would indicate an error.";
+          //Med: restrict the range rather than having this in the description.
           reference
             "RFC 4915: Multi-Topology (MT) Routing in OSPF";
         }
@@ -307,10 +307,11 @@ module ietf-ospf-sr-mpls {
         }
         leaf sid {
           type uint32;
-          description  //Med: (internal inconsistency) Why not a length is not used here to demux?
+          description
             "SID: A-20 bit label or an index into the SID/Label space.
 
              //Med: It seems that we are mixing message format vs what can be managed
+             //flags can't be set to 0 as we are manipulating identityrefs.
 
              If the  V-Flag is set to 0 and L-Flag is set to 0:
              The SID/Index/Label field is a 4-octet index defining
@@ -515,7 +516,7 @@ module ietf-ospf-sr-mpls {
         leaf sid {
           type uint32;
           description
-            "SID: A 20-bit label or an index into the SID/Label
+            "A 20-bit label or an index into the SID/Label
              space.
 
              If the  V-Flag is set to 0 and L-Flag is set to 0:
@@ -608,7 +609,7 @@ module ietf-ospf-sr-mpls {
           description
             "SID: A 20-bit label or an index into the SID/Label
              space.
-
+             //Med: Same comments as above.
              If the  V-Flag is set to 0 and L-Flag is set to 0:
              The SID/Index/Label field is a 4-octet index defining
              the offset in the SID/Label space advertised by this
@@ -658,7 +659,7 @@ module ietf-ospf-sr-mpls {
           description
             "Neighbor router ID.";
         }
-        //Med: Some internal inconsistency comment as for OSPF
+        //Med: Same comment as for OSPF
         leaf sid {
           type uint32;
           description
@@ -687,7 +688,8 @@ module ietf-ospf-sr-mpls {
     when "derived-from(/rt:routing/rt:control-plane-protocols/"
        + "rt:control-plane-protocol/rt:type, 'ospf:ospf')" {
       description
-        "Augmentation to the OSPF routing protocol when used.";
+        "Augmentation to the OSPF routing protocol structure,
+         when used.";
     }
     description
       "This augments the OSPF protocol module
@@ -707,7 +709,7 @@ module ietf-ospf-sr-mpls {
     when "derived-from(/rt:routing/rt:control-plane-protocols/"
        + "rt:control-plane-protocol/rt:type, 'ospf:ospf')" {
       description
-        "This augments the OSPF interface structure
+        "This augments the OSPF interface structure,
          when used.";
     }
     description
@@ -742,7 +744,8 @@ module ietf-ospf-sr-mpls {
     when "derived-from(/rt:routing/rt:control-plane-protocols/"
        + "rt:control-plane-protocol/rt:type, 'ospf:ospf')" {
       description
-        "This augments the OSPF routing protocol when used.";
+        "This augments the OSPF interface structure,
+         when used.";
     }
     description
       "This augments the OSPF protocol IP-FRR structure with
@@ -783,16 +786,16 @@ module ietf-ospf-sr-mpls {
                a lower priority being more preferred.";
           }
           description
-            "Enable SRLG (Sharsed Resource Link Group)
+            "Enable Sharsed Resource Link Group (SRLG)
              disjoint as a TI-LFA path selection tie-breaker.
              A path providing node a disjoint path for SRLG
              links from the primary path will be selected over
              one that doesn't provide an SRLG disjoint path.";
         }
         description
-          "Configure path selection tie-breakers and their
+          "Configures path selection tie-breakers and their
            respective priorities for the TI-LFA computation.
-           multiple tie-breakers and priorities configured may
+           Multiple tie-breakers and priorities configured may
            be configured.";
       }
       description
@@ -810,7 +813,8 @@ module ietf-ospf-sr-mpls {
     when "derived-from(/rt:routing/rt:control-plane-protocols/"
        + "rt:control-plane-protocol/rt:type, 'ospf:ospf')" {
       description
-        "This augments the OSPF routing protocol structure when used.";
+        "This augments the OSPF interface structure,
+         when used.";
     }
     description
       "This augments the OSPF protocol IP-FRR with remote LFA.";
@@ -972,13 +976,14 @@ module ietf-ospf-sr-mpls {
               "Adj-SID sub-TLV flags.";
           }
           description
-            "Adj-sid sub-TLV flags.";
+            "Adj-SID sub-TLV flags.";
         }
         leaf mt-id {
           type uint8;
           description
             "Multi-topology ID. Topologies range from 0-127 and
              return of any other value would indicate an error.";
+           //Med: Idem as a similar comment
           reference
             "RFC 4915: Multi-Topology (MT) Routing in OSPF";
         }
@@ -987,11 +992,10 @@ module ietf-ospf-sr-mpls {
           description
             "Weight used for load-balancing.";
         }
-        leaf sid {
+        leaf sid { //Med: same comment as 
           type uint32;
           description
-            "SID: A 20-bit label or
-             an index into the SID/Label space.
+            "SID: A 20-bit label or an index into the SID/Label space.
 
              If the  V-Flag is set to 0 and L-Flag is set to 0:
              The SID/Index/Label field is a 4-octet index defining
@@ -1029,6 +1033,7 @@ module ietf-ospf-sr-mpls {
           description
             "Multi-topology ID. Topologies range from 0-127 and
              return of any other value would indicate an error.";
+          //Med: Same comment as for similar data node
           reference
             "RFC 4915: Multi-Topology (MT) Routing in OSPF";
         }
@@ -1044,8 +1049,8 @@ module ietf-ospf-sr-mpls {
         }
         leaf sid {
           type uint32;
-          description
-            "Segment Identifier (SID) - A 20 bit label or
+          description  //Med: Same comments as for similar data node
+            "SID - A 20 bit label or
              an index into the SID/Label space.
 
              If the  V-Flag is set to 0 and L-Flag is set to 0:
