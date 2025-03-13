@@ -339,7 +339,7 @@ module ietf-isis-sr-mpls {
     container sr-capability {
       description
         "Segment Routing capability.";
-      //Med: sr-capability/sr-capability may question why we need to layers
+      //Med: sr-capability/sr-capability may question why we need two layers
       //Med: No need to repeat the parent prefix
       container capability {
         //Med: No need to repeat the parent prefix
