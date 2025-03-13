@@ -481,8 +481,8 @@ module ietf-isis-sr-mpls {
       //Med: no need to repeat the prefix of the parent node
       list prefix-sid {
         key "sid";
-        container prefix-sid-flags {
-          //Med: Use singular per the 8407bs guidance.
+        container flags {
+          //Med: Use singular per the 8407bis guidance.
           leaf-list flag {
             type identityref {
               base prefix-sid-flag;
@@ -921,7 +921,7 @@ module ietf-isis-sr-mpls {
       "This augments IS-IS protocol LSDB.";
     container sid-binding-tlvs {
       //Med: avoid repeating the parent node prefix
-      list tlv {
+      list sid-binding {
         key "prefix";
         uses sid-binding-tlv;
         description
@@ -932,7 +932,7 @@ module ietf-isis-sr-mpls {
     }
     container mt-sid-binding-tlvs {
       //Med: No need to repeat the parent prefix here.
-      list tlv {
+      list mt-sid-binding {
         key "prefix mt-id";
         uses sid-binding-tlv;
         leaf mt-id {
