@@ -169,6 +169,8 @@ module ietf-ospf-sr-mpls {
        RFC 8666: OSPFv3 Extensions for Segment Routing, Section 6";
   }
 
+  //Med (DISCUSS): We should restrict the flags per version. IA-flag
+  //is not defined in 8666, while it is in 8665.
   identity extended-prefix-range-flag {
     description
       "Base identity for extended prefix range TLV flags.";
@@ -185,6 +187,9 @@ module ietf-ospf-sr-mpls {
   identity adj-sid-flag {
     description
       "Base identity for Adj-SID sub-TLV flags.";
+    reference
+      "RFC 8665: OSPF Extensions for Segment Routing, Section 6.1
+       RFC 8666: OSPFv3 Extensions for Segment Routing, Section 7.1";
   }
 
   identity b-flag {
@@ -196,21 +201,23 @@ module ietf-ospf-sr-mpls {
        RFC 8666: OSPFv3 Extensions for Segment Routing, Section 7.1";
   }
 
+  //Med: Indicate that this corresponds to the V-Flag as there is no VI-Flag in 8665/8666
+
   identity vi-flag {
     base adj-sid-flag;
     description
-      "Value/Index flag.";
+      "Value/Index flag. Corresponds to the Adj-SID V-Flag.";
     reference
       "RFC 8665: OSPF Extensions for Segment Routing, Section 6.1
        RFC 8666: OSPFv3 Extensions for Segment Routing, Section 7.1";
   }
 
-  //Med: Indicates that this corresponds to the L-Flag as there is no lo-flag
+  //Med: Indicate that this corresponds to the L-Flag as there is no lo-flag in 8665/8666
 
   identity lo-flag {
     base adj-sid-flag;
     description
-      "Local/Global flag.";
+      "Local/Global flag. Corresponds to the Adj-SID L-Flag.";
     reference
       "RFC 8665: OSPF Extensions for Segment Routing, Section 6.1
        RFC 8666: OSPFv3 Extensions for Segment Routing, Section 7.1";
@@ -246,12 +253,13 @@ module ietf-ospf-sr-mpls {
         "Used to advertise the SID/Label associated with a prefix
          or adjacency.";
 
-      //Med: Why not being explicit and use a type for this?
+      //Med: (DISCUSS) Why not being explicit and use a type for this?
+      //Med: (DISCUSS) Should that be mandatory then? especially that the description says "This parameter is necessary"
       leaf length {
         type uint16;
         description
           "Length of the SID value. This parameter is necessary
-           since it dictates the semantics of the SID.";
+           since it dictates the semantics of the SID."; 
       }
       leaf sid {
         type uint32;
@@ -273,10 +281,10 @@ module ietf-ospf-sr-mpls {
     container prefix-sid-sub-tlvs {
       description
         "Prefix SID sub-TLV.";
-      //Med: No need to repeat the prefix
-      list tlv {
+      //Med: No need to repeat the parent name
+      list prefix-sid {
         description
-          "Prefix SID sub-TLV.";
+          "Prefix-SID sub-TLV.";
       //Med: No need to repeat the prefix
         container flags {
           leaf-list flag {
@@ -338,12 +346,12 @@ module ietf-ospf-sr-mpls {
     container extended-prefix-range-tlvs {
       description
         "List of range of prefixes.";
-      //Med: No need to repeat the prefix
-      list tlv {
+      //Med: No need to repeat the parent name
+      list extended-prefix-range {
         description
           "Range of prefixes.";
 
-        //Med: Why is the length needed?
+        //Med: Why is the use of the prefix? No clear from the current description.
 
         leaf prefix-length {
           type uint8;
@@ -368,7 +376,8 @@ module ietf-ospf-sr-mpls {
             "Number of prefixes covered by the
              advertisement.";
         }
-        container extended-prefix-range-flags {
+        //Med: No need to repeat the parent identifier
+        container flags {
           //Med: Singular form should be used per rfc8407bis
           leaf-list flag {
             type identityref {
@@ -400,7 +409,8 @@ module ietf-ospf-sr-mpls {
     container sr-algorithm-tlv {
       description
         "All SR algorithm TLVs.";
-      leaf-list sr-algorithm {
+      //Med: No need to repeat the parent identtifier
+      leaf-list algorithm {
         type identityref {
           base sr-cmn:prefix-sid-algorithm;
         }
@@ -419,8 +429,8 @@ module ietf-ospf-sr-mpls {
     container sid-range-tlvs {
       description
         "List of SID range TLVs.";
-      //Med: No need to repeat the prefix
-      list tlv {
+      //Med: No need to repeat the parent iddentifier
+      list sid-range {
         description
           "SID range TLV.";
         leaf range-size {
@@ -444,7 +454,7 @@ module ietf-ospf-sr-mpls {
       description
         "List of SR Local Block (SRLB) TLVs.";
       //Med: No need to repeat the prefix
-      list tlv {
+      list local-block {
         description
           "SRLB TLV.";
         leaf range-size {
@@ -476,7 +486,7 @@ module ietf-ospf-sr-mpls {
         type uint8;
         description
           "SRMS preference TLV, value from 0 to 255 with
-           255 being the most preferred.";
+           255 being the most preferred."; //Med: cite where the preference is defined.
       }
     }
   }
@@ -490,11 +500,12 @@ module ietf-ospf-sr-mpls {
     container prefix-sid-sub-tlvs {
       description
         "Prefix SID sub-TLV.";
-      //Med: No need to repeat the prefix
-      list tlv {
+      //Med: No need to repeat the parent name
+      list prefix-sid {
         description
           "Prefix SID sub-TLV.";
-        container ospfv3-prefix-sid-flags {
+        //Med: No need to repeat the parent name
+        container flags {
           leaf-list flag {
             type identityref {
               base prefix-sid-flag;
@@ -542,7 +553,7 @@ module ietf-ospf-sr-mpls {
     container ospfv3-extended-prefix-range-tlvs {
       description
         "List of extended prefix range TLVs.";
-      list extended-prefix-range-tlv {
+      list extended-prefix-range {
         description
           "Range of prefixes.";
         leaf prefix-length {
@@ -583,7 +594,7 @@ module ietf-ospf-sr-mpls {
       description
         "Adj-SID optional sub-TLVs.";
       //Med: No need to repeat the prefix
-      list tlv {
+      list adj-sid {
         description
           "List of Adj-SID sub-TLVs.";
         //Med: No need to repeat the prefix
@@ -633,10 +644,11 @@ module ietf-ospf-sr-mpls {
     container lan-adj-sid-sub-tlvs {
       description
         "LAN Adj-SID optional sub-TLVs.";
-      list lan-adj-sid-sub-tlv {
+      //Med: no need to repeat the parent name
+      list lan-adj-sid {
         description
           "List of LAN Adj-SID sub-TLVs.";
-       //Med: No need to repeat the prefix
+       //Med: No need to repeat the parent name
         container flags {
           //Med: singular should be used
           leaf-list flag {
@@ -692,8 +704,8 @@ module ietf-ospf-sr-mpls {
          when used.";
     }
     description
-      "This augments the OSPF protocol module
-       with SR for the MPLS data plane.";
+      "This augments the OSPF protocol module with SR for the
+       MPLS data plane.";
     uses sr-mpls:sr-control-plane;
     container protocol-srgb {
       if-feature "sr-mpls:protocol-srgb";
@@ -962,11 +974,11 @@ module ietf-ospf-sr-mpls {
     container adj-sid-sub-tlvs {
       description
         "Adj-SID optional sub-TLVs.";
-      //Med: No need to repeat the prefix
-      list tlv {
+      //Med: No need to repeat the parent identifier
+      list adj-sid {
         description
           "List of Adj-SID sub-TLVs.";
-      //Med: No need to repeat the prefix
+      //Med: No need to repeat the parent identifier
         container flags {
           leaf-list flag {
             type identityref {
@@ -992,7 +1004,7 @@ module ietf-ospf-sr-mpls {
           description
             "Weight used for load-balancing.";
         }
-        leaf sid { //Med: same comment as 
+        leaf sid { //Med: same comment as above
           type uint32;
           description
             "SID: A 20-bit label or an index into the SID/Label space.
@@ -1013,7 +1025,7 @@ module ietf-ospf-sr-mpls {
       description
         "LAN Adj-SID optional sub-TLVs.";
       //Med: No need to repeat the prefix
-      list tlv {  //Med: can factorize with prev, except neighbor-router-id 
+      list lan-adj-sid {  //Med: can factorize with prev, except neighbor-router-id 
         description
           "List of LAN Adj-SID sub-TLVs.";
         //Med: No need to repeat the prefix
@@ -1256,7 +1268,7 @@ module ietf-ospf-sr-mpls {
       "OSPFv3 Area-Scoped E-NSSA LSA.";
   }
 
-  /* Prefix SID Sub-TLV in Intra-Area Prefix TLV */
+  /* Prefix-SID Sub-TLV in Intra-Area Prefix TLV */
 
   augment "/rt:routing/"
         + "rt:control-plane-protocols/rt:control-plane-protocol/"
@@ -1380,6 +1392,6 @@ module ietf-ospf-sr-mpls {
     uses ospfv3-adj-sid-sub-tlvs;
     uses ospfv3-lan-adj-sid-sub-tlvs;
     description
-      "OSPFv3 Area-Scoped Adj-SID Sub-TLV.";
+      "OSPFv3 Area-Scoped Adj-SID sub-TLV.";
   }
 }
