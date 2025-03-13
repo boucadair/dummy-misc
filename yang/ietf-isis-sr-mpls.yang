@@ -565,7 +565,8 @@ module ietf-isis-sr-mpls {
         "Specifies a range of addresses and their associated
          Prefix-SIDs.";
     }
-    container sid-binding-flags {
+    //Med: Use consistent naming
+    container flags {
       //Med: Use singular
       leaf-list flag {
         type identityref {
@@ -579,6 +580,7 @@ module ietf-isis-sr-mpls {
     }
     //Med: Use singular
     //Med: No need to reason with TLV for managing the functionality
+    //Med: Do we need the tree levels prefix-sid-sub-tlvs/prefix-sid-sub-tlvs/prefix-sid-sub-tlv?
     list prefix-sid {
       uses prefix-sid-sub-tlv;
       description
