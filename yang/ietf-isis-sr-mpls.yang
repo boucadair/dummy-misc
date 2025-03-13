@@ -339,8 +339,12 @@ module ietf-isis-sr-mpls {
     container sr-capability {
       description
         "Segment Routing capability.";
-      container sr-capability {
-        leaf-list sr-capability-flags {
+      //Med: sr-capability/sr-capability may question why we need to layers
+      //Med: No need to repeat the parent prefix
+      container capability {
+        //Med: No need to repeat the parent prefix
+        //Med: use singular per guidelines
+        leaf-list flag {
           type identityref {
             base sr-capability;
           }
@@ -458,7 +462,7 @@ module ietf-isis-sr-mpls {
         type boolean;
         description
           "Describes whether the adjacency SID must be protected.
-           It is protected, if set.";
+           It is protected, if set to 'true'.";
       }
       description
         "List of adjacency SIDs.";
@@ -510,9 +514,10 @@ module ietf-isis-sr-mpls {
   grouping adjacency-segment-id {
     description
       "This grouping defines SR extensions for adjacencies.";
-    list sid-list {
+    list adj-sid-list {
       key "sid";
-      container adj-sid-flags {
+      //Med: rename the node
+      container flags {
         //Med: Use singular per 8407bis guidance.
         leaf-list flag {
           type identityref {
@@ -603,8 +608,8 @@ module ietf-isis-sr-mpls {
   //Med: This can be used for reporting as well :-) Please rename.
   /* Configuration */
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis" {
     when "derived-from-or-self(../rt:type, 'isis:isis')" {
       description
@@ -625,15 +630,16 @@ module ietf-isis-sr-mpls {
     }
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface" {
     when "derived-from-or-self(../../../rt:type, 'isis:isis')" {
       description
         "This augments ISIS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS protocol configuration with SR.";
+      "This augments ISIS protocol configuration structure with SR
+       data nodes.";
     uses sr-mpls:igp-interface {
       augment "segment-routing/adjacency-sid/adj-sids" {
         when "../../../isis:interface-type = 'broadcast'" {
@@ -652,8 +658,8 @@ module ietf-isis-sr-mpls {
     }
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface"
         + "/isis:fast-reroute/isis:lfa" {
     when "derived-from-or-self(../../../../../rt:type,"
@@ -714,8 +720,8 @@ module ietf-isis-sr-mpls {
     }
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface"
         + "/isis:fast-reroute/isis:lfa/isis:level-1" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -738,8 +744,8 @@ module ietf-isis-sr-mpls {
     }
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface"
         + "/isis:fast-reroute/isis:lfa/isis:level-2" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -762,8 +768,8 @@ module ietf-isis-sr-mpls {
     }
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface"
         + "/isis:fast-reroute/isis:lfa/isis:remote-lfa" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -772,8 +778,7 @@ module ietf-isis-sr-mpls {
         "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments ISIS remoteLFA config with
-       use of segment-routing path.";
+      "This augments IS-IS rLFA structure with use of SR path.";
     leaf use-segment-routing-path {
       if-feature "remote-lfa-sr";
       type boolean;
@@ -783,14 +788,14 @@ module ietf-isis-sr-mpls {
          path. The value of this leaf is in effect only when
          rLFA is enabled."; 
          //Med: The use of the feature means this is supported not
-         //      enabled. Please update the description of the feature        
+         //Med: enabled. Please update the description of the feature        
     }
   }
 
   /* Operational states */
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:interfaces/isis:interface"
         + "/isis:adjacencies/isis:adjacency" {
     when "derived-from-or-self(../../../../../rt:type,"
@@ -799,12 +804,12 @@ module ietf-isis-sr-mpls {
         "This augments IS-IS routing protocol structure, when used.";
     }
     description
-      "This augments IS- IS protocol configuration with SR.";
+      "This augments IS-IS protocol data nodes with SR.";
     uses adjacency-state;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:router-capabilities" {
     when "derived-from-or-self(../../../../../rt:type,"
@@ -820,8 +825,8 @@ module ietf-isis-sr-mpls {
     uses srms-preference;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:extended-is-neighbor/isis:neighbor" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -834,8 +839,8 @@ module ietf-isis-sr-mpls {
     uses adjacency-segment-id;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:mt-is-neighbor/isis:neighbor" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -848,8 +853,8 @@ module ietf-isis-sr-mpls {
     uses adjacency-segment-id;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:extended-ipv4-reachability/isis:prefixes" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -862,8 +867,8 @@ module ietf-isis-sr-mpls {
     uses prefix-sid-sub-tlv;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:mt-extended-ipv4-reachability/isis:prefixes" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -876,8 +881,8 @@ module ietf-isis-sr-mpls {
     uses prefix-sid-sub-tlv;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:ipv6-reachability/isis:prefixes" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -890,8 +895,8 @@ module ietf-isis-sr-mpls {
     uses prefix-sid-sub-tlv;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp"
         + "/isis:mt-ipv6-reachability/isis:prefixes" {
     when "derived-from-or-self(../../../../../../rt:type,"
@@ -904,8 +909,8 @@ module ietf-isis-sr-mpls {
     uses prefix-sid-sub-tlv;
   }
 
-  augment "/rt:routing/"
-        + "rt:control-plane-protocols/rt:control-plane-protocol"
+  augment "/rt:routing"
+        + "/rt:control-plane-protocols/rt:control-plane-protocol"
         + "/isis:isis/isis:database/isis:levels/isis:lsp" {
     when "derived-from-or-self(../../../../rt:type,"
        + "'isis:isis')" {
@@ -915,7 +920,8 @@ module ietf-isis-sr-mpls {
     description
       "This augments IS-IS protocol LSDB.";
     container sid-binding-tlvs {
-      list sid-binding-tlv {
+      //Med: avoid repeating the parent node prefix
+      list tlv {
         key "prefix";
         uses sid-binding-tlv;
         description
