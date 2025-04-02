@@ -63,8 +63,7 @@ module ietf-ospf-sr-mpls {
                <mailto:ingwherchen@mitre.org>";
   description
     "This YANG module defines the generic configuration
-     and operational state for OSPF Segment Routing (SR), which
-     is common across all of the vendor implementations.
+     and operational state for OSPF Segment Routing (SR).
 
      Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
