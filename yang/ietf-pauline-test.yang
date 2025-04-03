@@ -34,6 +34,7 @@ module ietf-pauline-test {
   revision 2025-04-03 {
     description
       "Initial revision.";
+    reference "";
   }
 
   /* Identities */
@@ -68,21 +69,20 @@ module ietf-pauline-test {
 
   identity vert-2 {
     base deuxieme-id;
-    description
-      "xxx.";
+    description "xxx.";
   }
 
   container premier-nom {
     description
       "xxx.";
     container premier-nom {
-      description
-        "x.";
+      description "x.";
     }
-    leaf-list premier-nom {
+    leaf-list deuxieme-nom {
        type identityref {
           base deuxieme-id;
-    }
+       }
+      description  "xxx.";
    }
- }
+  }
 }
