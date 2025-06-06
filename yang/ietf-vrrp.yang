@@ -136,7 +136,10 @@ module ietf-vrrp {
     }
     description
       "Indicates why the virtual router has transitioned to
-       active state.";
+       active state.
+
+       The identifier of this typedef is changed to to reflect
+       the updated terminology used in RFC 9568.";
   } // new-active-reason-type
 
   /*
@@ -178,7 +181,10 @@ module ietf-vrrp {
     base vrrp-event-type;
     description
       "Indicates that the current active virtual router has not sent
-       an advertisement within the limit of active-down-interval.";
+       an advertisement within the limit of active-down-interval.
+
+       The identity is changed to to reflect the updated terminology
+       used in RFC 9568.";
   }
 
   identity vrrp-event-interface-up {
@@ -233,7 +239,10 @@ module ietf-vrrp {
   identity vrrp-event-lower-priority-active {
     base vrrp-event-type;
     description
-      "Indicates that there is a lower-priority VRRP active router.";
+      "Indicates that there is a lower-priority VRRP active router.
+
+      The identity is changed to to reflect the updated terminology
+      used in RFC 9568.";
   }
 
   identity vrrp-event-owner-preempt {
@@ -337,7 +346,10 @@ module ietf-vrrp {
     description
       "Indicates that the virtual router is forwarding
        packets for IP addresses that are associated with
-       this virtual router.";
+       this virtual router.
+
+      The identity is changed to to reflect the updated terminology
+      used in RFC 9568.";
   }
 
   /* vrrp-version identity and its derivatives. */
@@ -740,7 +752,10 @@ module ietf-vrrp {
       config false;
       description
         "Time interval for the backup virtual router to declare
-         'active down'.";
+         'active down'.
+
+         The identifier of this leaf is changed to to reflect
+         the updated terminology used in RFC 9568.";
     }
     leaf skew-time {
       type uint32;
@@ -763,7 +778,10 @@ module ietf-vrrp {
       config false;
       description
         "Indicates why the virtual router has transitioned to
-         active state.";
+         active state.
+
+         The identifier of this leaf is changed to to reflect
+         the updated terminology used in RFC 9568.";
     }
     container statistics {
       config false;
@@ -783,7 +801,10 @@ module ietf-vrrp {
         type yang:counter32;
         description
           "The total number of times that this virtual router's
-           state has transitioned to 'Active'.";
+           state has transitioned to 'Active'.
+  
+           The identifier of this leaf is changed to to reflect
+           the updated terminology used in RFC 9568.";
       }
       leaf advertisement-rcvd {
         type yang:counter64;
@@ -966,19 +987,29 @@ module ietf-vrrp {
   notification vrrp-new-active-event {
     description
       "Notification event for the election of a new VRRP
-       active router.";
+       active router.
+
+       The identifier of the notification is changed to 
+       reflect the updated terminology used in RFC 9568.";
+
     leaf active-ip-address {
       type inet:ip-address;
       mandatory true;
       description
-        "IPv4 or IPv6 address of the new VRRP active router.";
+        "IPv4 or IPv6 address of the new VRRP active router.
+
+        The identifier of the leaf is changed to 
+        reflect the updated terminology used in RFC 9568.";
     }
     leaf new-active-reason {
       type new-active-reason-type;
       mandatory true;
       description
         "Indicates why the virtual router has transitioned to
-         active state.";
+         active state.
+
+        The identifier of the leaf is changed to 
+        reflect the updated terminology used in RFC 9568.";
     }
   }
 
