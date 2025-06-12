@@ -11,15 +11,15 @@ module ietf-bmp {
     reference
       "RFC 6991: Common YANG Data Types";
   }
-  import ietf-bgp-types {
+  import ietf-bgp-types {   //Med: There is no such module.
     prefix bt;
     description
       "The bgp types is a model that contains just types.
-      Vendors can include it without implications.";
+      Vendors can include it without implications.";  //Med: Not sure what is meant here.
     reference
       "RFC AAAA: BGP YANG module for Service Provider Network.
        RFC-EDITOR: please update XXX with the RFC ID assigned
-       to I-D.ietf-idr-bgp-model";
+       to I-D.ietf-idr-bgp-model";  
   }
   import ietf-netconf-acm {
     prefix nacm;
@@ -80,7 +80,7 @@ module ietf-bmp {
      (RFC 8174) when, and only when, they appear in all
      capitals, as shown here.
 
-     Copyright (c) 2022 IETF Trust and the persons identified as
+     Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -98,26 +98,23 @@ module ietf-bmp {
     description
       "initial version";
     reference
-      "RFC YYYY: BMP YANG Module
-       RFC-EDITOR: please update YYYY with this RFC ID";
+      "RFC YYYY: BMP YANG Module";
   }
 
   identity bmp-peer-selectors {
     description
-      "Enum values for selecting peers";
+      "Base identity for selecting peers.";
   }
 
   identity bmp-peer-selectors-all-peers {
     base bmp-peer-selectors;
     description
-      "This identity selects all peers under the RIB.
-       When used, it acts as a default configuration.";
+      "Identifies all peers under the RIB.";
   }
 
   identity bmp-ni-types {
     description
-      "Enum values for selecting one or more network instances for
-      configuration";
+      "Base identity for one or more network instances types.";
   }
 
   identity bmp-ni-types-all-ni {
@@ -1098,7 +1095,5 @@ module ietf-bmp {
         }
       }
     }
-
   }
-
 }
