@@ -4,8 +4,8 @@
 
 Network Working Group                                                Med
 Internet-Draft                                    Your Organization Here
-Intended status: Informational                              27 June 2025
-Expires: 29 December 2025
+Intended status: Informational                              28 June 2025
+Expires: 30 December 2025
 
 
                            TODO - Your title
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 29 December 2025.
+   This Internet-Draft will expire on 30 December 2025.
 
 Copyright Notice
 
