@@ -18,8 +18,6 @@ TXT=$(patsubst $(YANGDIR)/%.yang,%-diagram.txt,$(YANG))
 
 pyang-lint: $(STDYANG) $(STDYANGDIR)
 	pyang -V --ietf -f tree --tree-line-length=70 --tree-print-groupings -p $(YANG_PATH) $(STDYANG)
-        pyang -f yang --keep-comments --yang-line-length=69 -p $(YANG_PATH) $(STDYANG)  
-
 
 yang-lint: $(STDYANG) $(STDYANGDIR)
 	yanglint --verbose -p $(YANGDIR) -p $(STDYANGDIR)/standard/ietf/RFC/ -p $(STDYANGDIR)/experimental/ietf-extracted-YANG-modules -p $(STDYANGDIR)/standard/ieee/published/802.1/ $(STDYANG) -i
