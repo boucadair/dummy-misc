@@ -88,10 +88,11 @@ module ietf-layer0-types {
     reference
       "RFC 6205: Generalized Labels for Lambda-Switch-Capable
                  (LSC), Label Switching Routers
-
        ITU-T G.694.2 (12/2003): Spectral grids for WDM applications:
                 CWDM wavelength grid";
   }
+
+//Med: indentation is not consistent. Please run "pyang -f yang --yang-canonical"
 
     identity wson-grid-cwdm {
       base l0-grid-type;
@@ -100,7 +101,6 @@ module ietf-layer0-types {
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers
-
         ITU-T G.694.2 (12/2003): Spectral grids for WDM applications:
                    CWDM wavelength grid";
     }
@@ -112,7 +112,6 @@ module ietf-layer0-types {
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable
                    (LSC), Label Switching Routers
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
@@ -124,7 +123,6 @@ module ietf-layer0-types {
       reference
         "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                    Switch Capable (LSC) Label Switching Routers
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                   DWDM frequency grid";
     }
@@ -135,7 +133,6 @@ module ietf-layer0-types {
     reference
       "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                  Label Switching Routers //Med: Add explicit section
-
        ITU-T G.694.2 (12/2003): Spectral grids for WDM applications:
                  CWDM wavelength grid";
   }
@@ -147,18 +144,16 @@ module ietf-layer0-types {
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers    //Med: mention Section 3.1
-
         ITU-T G.694.2 (12/2003): Spectral grids for WDM applications:
                   CWDM wavelength grid";
     }
 
   identity dwdm-ch-spc-type {
     description
-      "DWDM channel-spacing type";
+      "DWDM channel-spacing type.";
     reference
       "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                  Label Switching Routers   //Med: mention Section 3.2
-
        ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                  DWDM frequency grid";
   }
@@ -166,11 +161,10 @@ module ietf-layer0-types {
     identity dwdm-100ghz {
       base dwdm-ch-spc-type;
       description
-        "100 GHz channel spacing";
+        "100 GHz channel spacing.";
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers   //Med: mention Section 3.2
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                   DWDM frequency grid";
     }
@@ -178,11 +172,10 @@ module ietf-layer0-types {
     identity dwdm-50ghz {
       base dwdm-ch-spc-type;
       description
-        "50 GHz channel spacing";
+        "50 GHz channel spacing.";
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers   //Med: mention Section 3.2
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
@@ -190,11 +183,10 @@ module ietf-layer0-types {
     identity dwdm-25ghz {
       base dwdm-ch-spc-type;
       description
-        "25 GHz channel spacing";
+        "25 GHz channel spacing.";
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers   //Med: mention Section 3.2
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
@@ -202,11 +194,10 @@ module ietf-layer0-types {
     identity dwdm-12p5ghz {
       base dwdm-ch-spc-type;
       description
-        "12.5 GHz channel spacing"; 
+        "12.5 GHz channel spacing."; 
       reference
         "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                    Label Switching Routers   //Med: mention Section 3.2
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
@@ -231,7 +222,6 @@ module ietf-layer0-types {
     reference
       "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                   Switch Capable (LSC) Label Switching Routers
-
       ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                   DWDM frequency grid";
   }
@@ -239,22 +229,20 @@ module ietf-layer0-types {
     identity flexi-ncfg-6p25ghz {
       base flexi-ncfg-type;
       description
-        "6.25 GHz Nominal Central Frequency Granularity (NCFG)";
+        "6.25 GHz Nominal Central Frequency Granularity (NCFG).";
       reference
         "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                    Switch Capable (LSC) Label Switching Routers
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
 
   identity flexi-slot-width-granularity {
     description
-      "Flexi-grid slot width granularity";
+      "Flexi-grid slot width granularity.";
     reference
       "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                  Switch Capable (LSC) Label Switching Routers
-
       ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                  DWDM frequency grid";
   }
@@ -262,11 +250,10 @@ module ietf-layer0-types {
     identity flexi-swg-12p5ghz {
       base flexi-slot-width-granularity;
       description
-        "12.5 GHz slot width granularity";
+        "12.5 GHz slot width granularity.";
       reference
         "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                    Switch Capable (LSC) Label Switching Routers
-
         ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                    DWDM frequency grid";
     }
@@ -344,7 +331,7 @@ module ietf-layer0-types {
       base modulation;
       description
         "64 symbols Dual Polarization Quadrature Amplitude
-         Modulation (DP-QAM64)";
+         Modulation (DP-QAM64).";
     }
 
   identity fec-type {
@@ -374,7 +361,7 @@ module ietf-layer0-types {
     identity no-fec {
       base fec-type;
       description
-        "No FEC";
+        "No FEC.";
     }
 
     identity sc-fec {
@@ -392,11 +379,10 @@ module ietf-layer0-types {
         "Open Forward Error Correction (O-FEC) which reuses the
          Bose, Chaudhuri and Hocquenghem (BCH) FEC.";
       reference
-        "Clause 16.4.4 of ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
-                 long-reach interfaces
-
-        Annex E of ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
-                 long-reach interfaces.";
+        "ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
+                 long-reach interfaces, Clause 16.4.4
+         ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
+                 long-reach interfaces, Annex E";
     }
 
     identity c-fec {
@@ -409,14 +395,12 @@ module ietf-layer0-types {
          More details are provided in clause 15/G.709.3 where it is
          called DSH instead of concatenated FEC.";
       reference
-        "Annex A of ITU-T G.709.2 v1.1 (09/2020):OTU4 long-reach
-                     interface
-
-         Annex D of ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
-                    long-reach interfaces
-
-         Clause 15 of ITU-T G.709.3 v2.1 (11/2022): Flexible OTN
-                     long-reach interfaces";
+        "ITU-T G.709.2 v1.1 (09/2020):OTU4 long-reach
+                     interface, Annex A
+         ITU-T G.709.3 v2.1 (11/2022): Flexible OTN long-reach 
+                     interfaces, Annex D
+         ITU-T G.709.3 v2.1 (11/2022): Flexible OTN long-reach
+                     interfaces, Section 15";   //Med: Consistent reference style clause vs section
     }
 
   identity line-coding {
@@ -424,7 +408,7 @@ module ietf-layer0-types {
       "Base identity to defined the bit rate/line coding of optical
        tributary signals.";
     reference
-      "Section 7.1.2 of ITU-T G.698.2 v3.0 (11/2018)";
+      "ITU-T G.698.2 v3.0 (11/2018), Section 7.1.2";
   }
 
     identity line-coding-NRZ-2p5G {   //Med: use lowercase?
@@ -433,17 +417,17 @@ module ietf-layer0-types {
         "The non return to zero (NRZ) bit rate/line coding used by
          the optical tributary signal class NRZ 2.5G.";
       reference
-        "Section 3.2.6 of ITU-T G.959.1 v8.0 (07/2018)";
+        "ITU-T G.959.1 v8.0 (07/2018), Section 3.2.6";
     }
 
-    identity line-coding-NRZ-OTU1 {       //Med: use lowercase?
+    identity line-coding-NRZ-OTU1 {       //Med: Use lowercase?
       base line-coding;
       description
-        "The non return to zero (NRZ) bit rate/line coding used by
+        "The Non-Return to Zero (NRZ) bit rate/line coding used by
          the Optical channel Transport Unit order 1 (OTU1) optical
          tributary signals.";
       reference
-        "Section 7.2.1.2 of ITU-T G.959.1 v8.0 (07/2018)";
+        "ITU-T G.959.1 v8.0 (07/2018), Section 7.2.1.2";
     }
 
     identity line-coding-NRZ-10G {   //Med: use lowercase?
@@ -451,7 +435,7 @@ module ietf-layer0-types {
         "The non return to zero (NRZ) bit rate/line coding used by
          the optical tributary signal class NRZ 10G.";
       reference
-        "Section 3.2.7 of ITU-T G.959.1 v8.0 (07/2018)";
+        "Section 3.2.7 of ITU-T G.959.1 v8.0 (07/2018)"; 
     }
 
     identity line-coding-NRZ-OTU2 {   //Med: use lowercase?
@@ -488,7 +472,7 @@ module ietf-layer0-types {
 
   identity wavelength-assignment {
     description
-      "Wavelength selection base";
+      "Wavelength selection base.";
     reference
       "RFC 7689: Signaling Extensions for Wavelength Switched
                  Optical Networks";
@@ -600,7 +584,6 @@ module ietf-layer0-types {
     reference
       "RFC6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                 Label Switching Routers
-
        ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                 DWDM frequency grid";
   }
@@ -620,7 +603,6 @@ module ietf-layer0-types {
     reference
       "RFC 6205: Generalized Labels for Lambda-Switch-Capable (LSC)
                  Label Switching Routers
-
        ITU-T G.694.2 (12/2003): Spectral grids for WDM applications:
                  CWDM wavelength grid";
   }
@@ -641,7 +623,6 @@ module ietf-layer0-types {
     reference
       "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                  Switch Capable (LSC) Label Switching Routers
-
        ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                  DWDM frequency grid";
   }
@@ -658,7 +639,6 @@ module ietf-layer0-types {
     reference
       "RFC 7699: Generalized Labels for the Flexi-Grid in Lambda
                  Switch Capable (LSC) Label Switching Routers
-
        ITU-T G.694.1 (10/2020): Spectral grids for WDM applications:
                  DWDM frequency grid";
   }
@@ -669,7 +649,7 @@ module ietf-layer0-types {
       "Identifies an ITU-T G.698.2 standard application code.
 
       It MUST be a string with a format that follows the      //Med: --how is this enforced by YANG?
-      nomenclature defined in section 5.3 of ITU-T G.698.2."; 
+      nomenclature defined in Section 5.3 of ITU-T G.698.2."; 
     reference
       "ITU-T G.698.2 (11/2018)";
   }
@@ -714,7 +694,7 @@ module ietf-layer0-types {
     }
     units "GHz";
     description
-      "The DWDM frequency in GHz, e.g., 193112.500000";
+      "The DWDM frequency in GHz, e.g., 193112.500000.";
   }
 
   typedef snr {
@@ -758,15 +738,15 @@ module ietf-layer0-types {
       }
       enum G.656 {
         description
-          "G.656 Non-Zero Dispersion for Wideband Optical Transport";
+          "G.656 Non-Zero Dispersion for Wideband Optical Transport.";
       }
       enum G.657 {
         description
-          "G.657 Bend-Insensitive Fiber";
+          "G.657 Bend-Insensitive Fiber.";
       }
     }
     description
-      "ITU-T based fiber-types";  //Med: is there a public reference to cited? Do we expect those to evolve? If so, use identities.
+      "ITU-T based fiber-types";  //Med: -- is there a public reference to cited? Do we expect those to evolve? If so, use identities.
   }
 
   typedef decimal-2 {
@@ -933,7 +913,7 @@ module ietf-layer0-types {
         "Label for fixed & flexi-DWDM or CWDM grid";
       case fixed-dwdm {
         leaf dwdm-n {
-          when "derived-from-or-self(../../../grid-type, "
+          when "derived-from-or-self(../../../grid-type, "  // Med: use + for folding
               + "wson-grid-dwdm)" {        //Med: --Should be prefixed
             description
               "Valid only when grid type is DWDM.";
@@ -1327,7 +1307,7 @@ module ietf-layer0-types {
         "The given value 'N' is used to determine the nominal
          central frequency.
 
-         As described in section 3.1 of RFC 8363, the range of
+         As described in Section 3.1 of RFC 8363, the range of
          available nominal central frequencies are advertised for
          m=1, which means that for an available central frequency n,
          the frequency slot from central frequency n-1 to central
@@ -1408,9 +1388,9 @@ module ietf-layer0-types {
         type identityref {
           base flexi-slot-width-granularity;
         }
-        default "flexi-swg-12p5ghz";
+        default "flexi-swg-12p5ghz";  //Med: Are we sure this will be valid for all cases
         description
-          "Minimum space between slot widths. Default is 12.500
+          "Minimum space between slot widths. Default is 12.500  //Med: redundant if you maintain the default statement
            GHz.";
         reference
           "RFC 8363: GMPLS OSPF-TE Extensions in Support of
@@ -1431,8 +1411,8 @@ module ietf-layer0-types {
                min-slot-width-factor * slot-width-granularity.";
         reference
           "RFC 8363: GMPLS OSPF-TE Extensions in Support of Flexi-
-           Grid Dense Wavelength Division Multiplexing (DWDM)
-           Networks";
+                     Grid Dense Wavelength Division Multiplexing (DWDM)
+                     Networks";
       }
       leaf max-slot-width-factor {
         type uint16 {
@@ -1457,7 +1437,7 @@ module ietf-layer0-types {
         reference
           "RFC 8363: GMPLS OSPF-TE Extensions in Support of Flexi-
                      Grid Dense Wavelength Division Multiplexing (DWDM)
-                    Networks";
+                     Networks";
       }
     }
   }
@@ -1469,7 +1449,7 @@ module ietf-layer0-types {
       type identityref {
         base flexi-ch-spc-type;
       }
-      default "flexi-ch-spc-6p25ghz";
+      default "flexi-ch-spc-6p25ghz";  //Med: Same comment for the other default values
       status deprecated;
       description
         "Label-step is the nominal central frequency granularity
@@ -1482,7 +1462,7 @@ module ietf-layer0-types {
       type identityref {
         base flexi-ncfg-type;
       }
-      default "flexi-ncfg-6p25ghz";
+      default "flexi-ncfg-6p25ghz";  //Med: Same comment for the other default values
       description
         "Label-step is the nominal central frequency granularity
          (GHz), e.g., 6.25 GHz.";
@@ -1542,14 +1522,14 @@ module ietf-layer0-types {
             length "1..255";
           }
           description
-            "ID for the supported transceiver's mode.";
+            "An identifier for the supported transceiver's mode.";
         }
         choice mode {
           config false;
           mandatory true;
           description
             "Indicates whether the transceiver's mode is a standard
-              mode, an organizational mode or an explicit mode.";
+             mode, an organizational mode or an explicit mode.";
           case G.698.2 {
             uses standard-mode;
             uses common-standard-organizational-mode;
@@ -1617,15 +1597,15 @@ module ietf-layer0-types {
   grouping standard-mode {
     description
       "ITU-T G.698.2 standard mode that guarantees interoperability.
-       It must be an string with the following format:
+       It must be a string with the following format:
        B-DScW-ytz(v) where all these attributes are conformant
-       to the ITU-T recomendation";
+       to the ITU-T recomendation.";
 
     leaf standard-mode {
       type standard-mode;
-      config false;
+      config false;   //Med: Is this needed in all cases?
       description
-        "G.698.2 standard mode";
+        "G.698.2 standard mode.";
     }
   }
 
@@ -1645,8 +1625,8 @@ module ietf-layer0-types {
       type organization-identifier;
       config false;
       description
-        "organization identifier that uses organizational
-         mode";
+        "Organization identifier that uses organizational
+         Mode.";   //Med: I don't understand this description. Please reword.
     }
   }
 
@@ -1663,7 +1643,7 @@ module ietf-layer0-types {
         type empty;
       }
       units "dB";
-      config false;
+      config false;  //Med: Idem for the other config comments above
       mandatory true;
       description
         "The OSNR penalty associated with the related optical
@@ -1675,14 +1655,14 @@ module ietf-layer0-types {
   grouping explicit-mode {
     description
       "Attributes capabilities related to explicit transceiver's
-      mode.
+       mode.
 
-      This grouping also contains the list of attributes related to
-      optical impairment limits for explicit mode (min OSNR, max PMD,
-      max CD, max PDL, Q-factor limit, etc.).
+       This grouping also contains the list of attributes related to
+       optical impairment limits for explicit mode (min OSNR, max PMD,
+       max CD, max PDL, Q-factor limit, etc.).
 
-      In case of standard and operational mode the attributes are
-      implicit.";
+       In case of standard and operational mode the attributes are
+       implicit.";
     leaf line-coding-bitrate {
       type identityref {
         base line-coding;
@@ -1707,7 +1687,7 @@ module ietf-layer0-types {
       config false;
       description
         "Maximum Differential group delay of this mode for this
-         lane";
+         line.";
     }
     leaf max-chromatic-dispersion {
       type decimal-2 {
@@ -1729,11 +1709,11 @@ module ietf-layer0-types {
       config false;
       description
         "Optional penalty associated with a given accumulated
-        chromatic dispersion (CD) value measured in
-        absence of other impairments.
+         chromatic dispersion (CD) value measured in
+         absence of other impairments.
 
-        This list of pair CD and OSNR penalty can be used to
-        sample the function OSNR penalty = f(CD).";
+         This list of pair CD and OSNR penalty can be used to
+         sample the function OSNR penalty = f(CD).";
       leaf cd-value {
         type decimal-2;
         units "ps/nm";
@@ -1797,7 +1777,7 @@ module ietf-layer0-types {
       description
         "Maximum acceptable accumulated polarization dependent
          loss (PDL) on the receiver at Rx-power reference point
-         (rx-ref-channel-power) and in absence of other impairments";
+         (rx-ref-channel-power) and in absence of other impairments.";
       reference
         "RFC IIII: A YANG Data Model for Optical Impairment-aware
                    Topology, Section 2.4.6";
@@ -1842,14 +1822,14 @@ module ietf-layer0-types {
         "Minimum OSNR measured over 0.1 nm resolution bandwidth:
          if received OSNR at Rx-power reference point
          (rx-ref-channel-power) is lower than MIN-OSNR, an increased
-         level of bit-errors post-FEC needs to be expected";
+         level of bit-errors post-FEC needs to be expected.";
     }
     leaf rx-ref-channel-power {
       type power-dbm;
       config false;
       description
         "The channel power used as reference for defining penalties
-         and min-OSNR";
+         and min-OSNR.";
     }
     list rx-channel-power-penalty {
       key rx-channel-power-value;
@@ -1875,7 +1855,7 @@ module ietf-layer0-types {
       units "dB";
       config false;
       description
-        "min Qfactor at FEC threshold";
+        "min Qfactor at FEC threshold.";  //Med: Add a more meaningful description
     }
     leaf available-baud-rate {
       type decimal64 {
@@ -1885,13 +1865,11 @@ module ietf-layer0-types {
       config false;
       description
         "Baud-rate the specific transceiver in
-        the list can support.
-         Baud-rate is the unit for
-         symbol rate or modulation rate
+         the list can support.
+         Baud-rate is the unit for symbol rate or modulation rate
          in symbols per second or pulses per second.
-         It is the number of distinct symbol
-         changes (signal events) made to the
-         transmission medium per second in a digitally
+         It is the number of distinct symbol changes (signal events)
+         made to the transmission medium per second in a digitally
          modulated signal or a line code";
     }
     leaf roll-off {
@@ -1902,25 +1880,25 @@ module ietf-layer0-types {
       config false;
       description
         "the roll-off factor (beta with values from 0 to 1)
-        identifies how the real signal shape exceed
-        the baud rate. If=0 it is exactly matching
-        the baud rate.If=1 the signal exceeds the
-        50% of the baud rate at each side.";
+         identifies how the real signal shape exceed
+         the baud rate. If=0 it is exactly matching
+         the baud rate.If=1 the signal exceeds the
+         50% of the baud rate at each side.";
     }
     leaf min-carrier-spacing {
       type frequency-ghz;
       config false;
       description
         "This attribute specifies the minimum nominal difference
-        between the carrier frequencies of two homogeneous OTSis
-        (which have the same optical characteristics but the central
-        frequencies) such that if they are placed next to each other
-        the interference due to spectrum overlap between them can be
-        considered negligible.
+         between the carrier frequencies of two homogeneous OTSis
+         (which have the same optical characteristics but the central
+         frequencies) such that if they are placed next to each other
+         the interference due to spectrum overlap between them can be
+         considered negligible.
 
-        In case of heterogeneous OTSi it is up to path computation
-        engine to determine the minimum distance between the carrier
-        frequency of the two adjacent OTSi.";
+         In case of heterogeneous OTSi it is up to path computation
+         engine to determine the minimum distance between the carrier
+         frequency of the two adjacent OTSi.";
     }
     leaf available-fec-type {
       type identityref {
@@ -1985,7 +1963,7 @@ module ietf-layer0-types {
       description
         "The transmitter polarization dependent power difference
          defined as the power difference between X and Y
-         polarizations";
+         polarizations.";
       reference
         "OIF-400ZR-01.0: Implementation Agreement 400ZR";
     }
