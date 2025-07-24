@@ -20,6 +20,11 @@ module ietf-packet-discard-reporting {
     reference
       "RFC 8343: A YANG Data Model for Interface Management";
   }
+  import ietf-routing {
+    prefix rt;
+    reference
+      "RFC 8349: A YANG Data Model for Routing Management (NMDA Version)";
+  }
   import ietf-logical-network-element {
     prefix lne;
     reference
@@ -100,13 +105,11 @@ module ietf-packet-discard-reporting {
    * Main structure definition
    */
 
-  container control-plane {
+  augment "/rt:routing/rt:control-plane-protocols/rt:control-plane-protocols" {
     if-feature "control-plane-stats";
     nacm:default-deny-all;
-    presence "Control plane statistics are available.";
-    config false;
     description
-      "Control plane packet counters.";
+      "Adds control plane discard counters.";
     uses plr-sx:control-plane;
   }
   augment "/if:interfaces-state/if:interface/if:statistics" {
