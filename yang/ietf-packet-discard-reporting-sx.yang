@@ -1,0 +1,659 @@
+module ietf-packet-discard-reporting-sx {
+  yang-version 1.1;
+  namespace
+    "urn:ietf:params:xml:ns:yang:ietf-packet-discard-reporting-sx";
+  prefix plr-sx;
+
+  import ietf-yang-types {
+    prefix yang;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import ietf-yang-structure-ext {
+    prefix sx;
+    reference
+      "RFC 8791: YANG Data Structure Extensions";
+  }
+
+  organization
+    "IETF OPSAWG (Operations and Management Area Working Group)";
+  contact
+    "WG Web:   https://datatracker.ietf.org/wg/opsawg/
+     WG List:  mailto:opsawg@ietf.org
+
+     Author:   John Evans
+               <mailto:jevanamz@amazon.co.uk>
+
+     Author:   Oleksandr Pylypenko
+               <mailto:opyl@amazon.com>
+
+     Author:   Jeffrey Haas
+               <mailto:jhaas@juniper.net>
+
+     Author:   Aviran Kadosh
+               <mailto:akadosh@cisco.com>
+
+     Author:   Mohamed Boucadair
+               <mailto:mohamed.boucadair@orange.com>";
+  description
+    "This module defines an information model for packet discard
+     reporting.
+
+     Copyright (c) 2025 IETF Trust and the persons identified as
+     authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     This version of this YANG module is part of RFC XXXX; see the
+     RFC itself for full legal notices.";
+
+  revision 2024-06-04 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: Information and Data Models for Packet Discard
+                 Reporting";
+  }
+
+  /*
+   * Features
+   */
+
+  feature interface-stats {
+    description
+      "Indicates support of interface statistics on this
+       device.";
+  }
+
+  feature device-stats {
+    description
+      "Indicates support of global device statistics on this
+       device.";
+  }
+
+  feature control-plane-stats {
+    description
+      "Indicates support of control plane statistics on this
+       device.";
+  }
+
+  feature flow-reporting {
+    description
+      "Indicates support of flow reporting on this device.";
+  }
+
+  /*
+   * Identities
+   */
+
+  identity direction {
+    description
+      "Defines a direction for the reported statistics.";
+  }
+
+  identity ingress {
+    base direction;
+    description
+      "Reports statistics for the received from the network
+       packets.";
+  }
+
+  identity egress {
+    base direction;
+    description
+      "Reports statistics for the sent to the network
+       packets.";
+  }
+
+  identity address-family {
+    description
+      "Defines a type for the address family.";
+  }
+
+  identity ipv4 {
+    base address-family;
+    description
+      "Identity for an IPv4 address family.";
+  }
+
+  identity ipv6 {
+    base address-family;
+    description
+      "Identity for an IPv6 address family.";
+  }
+
+  identity all {
+    base address-family;
+    description
+      "Identity for all address families.";
+  }
+
+  /*
+   * Groupings
+   */
+
+  grouping basic-packets {
+    description
+      "Grouping for Layer 3 packet counters.";
+    leaf packets {
+      type yang:counter64;
+      description
+        "Number of Layer 3 packets.";
+    }
+  }
+
+  grouping basic-packets-bytes {
+    description
+      "Grouping for Layer 3 packet and byte counters.";
+    uses basic-packets;
+    leaf bytes {
+      type yang:counter64;
+      description
+        "Number of Layer 3 bytes.";
+    }
+  }
+
+  grouping basic-frames {
+    description
+      "Grouping for Layer 2 frame counters.";
+    leaf frames {
+      type yang:counter64;
+      description
+        "Number of Layer 2 frames.";
+    }
+  }
+
+  grouping basic-frames-bytes {
+    description
+      "Grouping for Layer 2 frame and byte counters.";
+    uses basic-frames;
+    leaf bytes {
+      type yang:counter64;
+      description
+        "Number of Layer 2 bytes.";
+    }
+  }
+
+  grouping l2-traffic {
+    description
+      "Layer 2 traffic counters.";
+    uses basic-frames-bytes;
+  }
+
+  grouping ip {
+    description
+      "Layer 3 traffic counters per address family.";
+    list address-family-stat {
+      key "address-family";
+      description
+        "Reports per address family traffic counters.";
+      leaf address-family {
+        type identityref {
+          base address-family;
+        }
+        description
+          "Specifies an address family.";
+      }
+      uses basic-packets-bytes;
+      container unicast {
+        description
+          "Unicast traffic counters.";
+        uses basic-packets-bytes;
+      }
+      container multicast {
+        description
+          "Multicast traffic counters.";
+        uses basic-packets-bytes;
+      }
+    }
+  }
+
+  grouping l3-traffic {
+    description
+      "Layer 3 traffic counters.";
+    uses ip;
+  }
+
+  grouping qos {
+    description
+      "Quality of Service (QoS) traffic counters.";
+    container qos {
+      presence "QoS statistics are available.";
+      description
+        "QoS traffic counters.";
+      list class {
+        key "id";
+        min-elements 1;
+        description
+          "QoS class traffic counters.";
+        leaf id {
+          type string;
+          description
+            "QoS class identifier.";
+        }
+        uses basic-packets-bytes;
+      }
+    }
+  }
+
+  grouping traffic {
+    description
+      "All traffic counters.";
+    container l2 {
+      description
+        "Layer 2 traffic counters.";
+      uses l2-traffic;
+    }
+    container l3 {
+      description
+        "Layer 3 traffic counters.";
+      uses l3-traffic;
+    }
+    uses qos;
+  }
+
+  grouping errors-l2-rx {
+    description
+      "Layer 2 ingress frame error discard counters.";
+    container rx {
+      description
+        "Layer 2 ingress frame receive error discard
+         counters.";
+      leaf frames {
+        type yang:counter64;
+        description
+          "The number of frames discarded due to errors
+           with the received frame.";
+      }
+      leaf crc-error {
+        type yang:counter64;
+        description
+          "The number of frames discarded due to CRC error.";
+      }
+      leaf invalid-mac {
+        type yang:counter64;
+        description
+          "The number of frames discarded due to an invalid
+           MAC address.";
+      }
+      leaf invalid-vlan {
+        type yang:counter64;
+        description
+          "The number of frames discarded due to an invalid
+           VLAN tag.";
+      }
+      leaf invalid-frame {
+        type yang:counter64;
+        description
+          "The number of invalid frames discarded due to other
+           reasons, not limited to: malformed frames, frame-size
+           violations.";
+      }
+    }
+  }
+
+  grouping errors-l3-rx {
+    description
+      "Layer 3 ingress packet error discard counters.";
+    container rx {
+      description
+        "Layer 3 ingress packet receive error discard
+         counters.";
+      leaf packets {
+        type yang:counter64;
+        description
+          "The number of Layer 3 packets discarded due to
+           errors in the received packet.";
+      }
+      leaf checksum-error {
+        type yang:counter64;
+        description
+          "The number of received packets discarded due
+           to a checksum error.";
+      }
+      leaf mtu-exceeded {
+        type yang:counter64;
+        description
+          "The number of received packets discarded due to
+           MTU exceeded.";
+      }
+      leaf invalid-packet {
+        type yang:counter64;
+        description
+          "The number of invalid packets discarded due to other
+           reasons, not limited to: invalid packet length, invalid
+           header fields, invalid options, invalid protocol version,
+           invalid flags or control bits, malformed packets.";
+      }
+    }
+    leaf ttl-expired {
+      type yang:counter64;
+      description
+        "The number of received packets discarded due to
+         expired TTL.";
+    }
+    leaf no-route {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to not matching
+         a valid route.";
+    }
+    leaf invalid-sid {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to an invalid
+         Segment Routing (SR) SID.";
+    }
+    leaf invalid-label {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to an invalid
+         MPLS label.";
+    }
+  }
+
+  grouping errors-l3-int {
+    description
+      "Internal error discard counters.";
+    leaf packets {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to internal
+         errors.";
+    }
+    leaf parity-error {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to parity
+         errors.";
+    }
+  }
+
+  grouping errors-l2-tx {
+    description
+      "Layer 2 transmit error discard counters.";
+    container tx {
+      description
+        "Layer 2 transmit frame error discard counters.";
+      leaf frames {
+        type yang:counter64;
+        description
+          "The number of Layer 2 frames discarded due to
+           errors when transmitting.";
+      }
+    }
+  }
+
+  grouping errors-l3-tx {
+    description
+      "Layer 3 transmit error discard counters.";
+    container tx {
+      description
+        "Layer 3 transmit packet error discard counters.";
+      leaf packets {
+        type yang:counter64;
+        description
+          "The number of Layer 3 packets discarded due to
+           errors when transmitting.";
+      }
+    }
+  }
+
+  grouping errors {
+    description
+      "Error discard counters.";
+    container l2 {
+      description
+        "Layer 2 frame error discard counters.";
+      uses errors-l2-rx;
+      uses errors-l2-tx;
+    }
+    container l3 {
+      description
+        "Layer 3 packet error discard counters.";
+      uses errors-l3-rx;
+      uses errors-l3-tx;
+    }
+    container internal {
+      description
+        "Internal error discard counters.";
+      uses errors-l3-int;
+    }
+  }
+
+  grouping policy-l2 {
+    description
+      "Layer 2 policy frame discard counters.";
+    leaf frames {
+      type yang:counter64;
+      description
+        "The number of Layer 2 frames discarded due
+         to policy.";
+    }
+    leaf acl {
+      type yang:counter64;
+      description
+        "The number of frames discarded due to Layer 2 ACLs.";
+    }
+  }
+
+  grouping policy-l3 {
+    description
+      "Layer 3 policy packet discard counters.";
+    leaf packets {
+      type yang:counter64;
+      description
+        "The number of Layer 3 packets discarded due to policy.";
+    }
+    leaf acl {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to Layer 3 ACLs.";
+    }
+    container policer {
+      description
+        "The number of packets discarded due to policer
+         violations.";
+      uses basic-packets-bytes;
+    }
+    leaf null-route {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to matching
+         a null route.";
+    }
+    leaf rpf {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to failing
+         Reverse Path Forwarding (RPF) check.";
+    }
+    leaf ddos {
+      type yang:counter64;
+      description
+        "The number of packets discarded due to DDoS
+         protection policies.";
+    }
+  }
+
+  grouping discards {
+    description
+      "Discard counters.";
+    container l2 {
+      description
+        "Layer 2 frame discard counters.";
+      uses l2-traffic;
+    }
+    container l3 {
+      description
+        "Layer 3 packet discard counters.";
+      uses l3-traffic;
+    }
+    container errors {
+      description
+        "Error discard counters.";
+      uses errors;
+    }
+    container policy {
+      description
+        "Policy-related discard counters.";
+      uses policy;
+    }
+    container no-buffer {
+      description
+        "Discard counters due to buffer unavailability.";
+      uses qos;
+    }
+  }
+
+  grouping policy {
+    description
+      "Policy-related discard counters.";
+    container l2 {
+      description
+        "Layer 2 policy frame discard counters.";
+      uses policy-l2;
+    }
+    container l3 {
+      description
+        "Layer 3 policy packet discard counters.";
+      uses policy-l3;
+    }
+  }
+
+  grouping device {
+    description
+      "Device-level traffic and discard counters.";
+    container traffic {
+      description
+        "Traffic counters.";
+      uses traffic;
+    }
+    container discards {
+      description
+        "Discard counters.";
+      uses discards;
+    }
+  }
+
+  grouping interface {
+    description
+      "Interface-level traffic and discard counters.";
+    list traffic {
+      key "direction";
+      description
+        "Traffic counters.";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Specifies a direction.";
+      }
+      uses traffic;
+    }
+    list discards {
+      key "direction";
+      description
+        "Discard counters.";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Specifies a direction.";
+      }
+      uses discards;
+    }
+  }
+
+  grouping control-plane {
+    description
+      "Control plane packet counters.";
+    list traffic {
+      key "direction";
+      description
+        "Total control plane packets.";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Specifies a direction.";
+      }
+      uses basic-packets-bytes;
+    }
+    list discards {
+      key "direction";
+      description
+        "Control plane packet discard counters.";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Specifies a direction.";
+      }
+      uses basic-packets-bytes;
+      container policy {
+        description
+          "Number of control plane packets discarded due to policy.";
+        uses basic-packets;
+      }
+    }
+  }
+
+  /*
+   * Main structure definition
+   */
+
+  sx:structure packet-discard-reporting {
+    description
+      "Specifies the abstract structure of packet discard
+       reporting data.";
+    container control-plane {
+      if-feature "control-plane-stats";
+      description
+        "Control plane packet counters.";
+      uses control-plane;
+    }
+    list interface {
+      if-feature "interface-stats";
+      key "name";
+      description
+        "Indicates a list of interfaces for which packet
+         discard reporting data is provided.";
+      leaf name {
+        type string;
+        description
+          "Indicates the name of the interface.";
+      }
+      uses interface;
+    }
+    list flow {
+      if-feature "flow-reporting";
+      key "direction";
+      leaf direction {
+        type identityref {
+          base direction;
+        }
+        description
+          "Specifies a direction.";
+      }
+      description
+        "Flow packet counters.";
+      uses device;
+    }
+    container device {
+      if-feature "device-stats";
+      description
+        "Device level packet counters.";
+      uses device;
+    }
+  }
+}
