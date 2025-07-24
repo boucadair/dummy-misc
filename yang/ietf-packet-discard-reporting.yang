@@ -105,7 +105,7 @@ module ietf-packet-discard-reporting {
    * Main structure definition
    */
 
-  augment "/rt:routing/rt:control-plane-protocols/rt:control-plane-protocols" {
+  augment "/rt:routing/rt:control-plane-protocols/rt:control-plane-protocol" {
     if-feature "control-plane-stats";
     nacm:default-deny-all;
     description
