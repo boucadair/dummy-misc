@@ -20,6 +20,11 @@ module ietf-packet-discard-reporting {
     reference
       "RFC 8343: A YANG Data Model for Interface Management";
   }
+  import ietf-logical-network-element {
+    prefix lne;
+    reference
+      "RFC 8530: YANG Model for Logical Network Elements";
+  }
 
   organization
     "IETF OPSAWG (Operations and Management Area Working Group)";
@@ -111,13 +116,11 @@ module ietf-packet-discard-reporting {
       "Adds packet discard reporting to the interface statistics.";
     uses plr-sx:interface;
   }
-  container device {
+  augment "/lne:logical-network-elements/lne:logical-network-element" {
     if-feature "device-stats";
-    presence "Device-level statistics are available.";
     nacm:default-deny-all;
-    config false;
     description
-      "Device level packet counters.";
+      "Adds device level packet counters.";
     uses plr-sx:device;
   }
 }
