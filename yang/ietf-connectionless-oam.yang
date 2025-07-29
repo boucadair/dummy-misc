@@ -1,0 +1,1237 @@
+
+           around and starts increasing again from zero.";
+        }
+
+        leaf rx-bad-packet {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total number of received bad OAM packets.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf tx-packet-failed {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total number of OAM packets that failed when sent.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+      }  // container session-packet-statistics
+    }  // grouping session-packet-statistics
+
+    grouping cc-per-session-statistics {
+      description
+        "Grouping for per-session statistics.";
+      container cc-per-session-statistics {
+        description
+          "Per-session statistics.";
+        leaf create-time {
+          type yang:date-and-time;
+          description
+            "Time and date when session is created.";
+        }
+
+        leaf last-down-time {
+          type yang:date-and-time;
+          description
+            "Time and date of the last time session was down.";
+        }
+
+        leaf last-up-time {
+          type yang:date-and-time;
+          description
+            "Time and date of the last time session was up.";
+        }
+
+        leaf down-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total count of Continuity Check sessions down.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf admin-down-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total count of Continuity Check sessions admin down.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        uses session-packet-statistics;
+      }  // container cc-per-session-statistics
+    }  // grouping cc-per-session-statistics
+
+    grouping session-error-statistics {
+      description
+        "Grouping for per-session error statistics.";
+      container session-error-statistics {
+        description
+          "Per-session error statistics.";
+        leaf packet-loss-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total count of received packet drops.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf loss-ratio {
+          type percentage;
+          description
+            "Loss ratio of the packets.  Expressed as percentage
+           of packets lost with respect to packets sent.";
+        }
+
+        leaf packet-reorder-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          default "0";
+          description
+            "Total count of received packets that were reordered.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf packets-out-of-seq-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          description
+            "Total count of packets received out of sequence.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf packets-dup-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          description
+            "Total count of received packet duplicates.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+      }  // container session-error-statistics
+    }  // grouping session-error-statistics
+
+    grouping session-delay-statistics {
+      description
+        "Grouping for delay statistics per session.";
+      container session-delay-statistics {
+        description
+          "Session delay summarized information.  By default, a
+         one-way measurement protocol (e.g., OWAMP) is used
+         to measure delay.  When a two-way measurement protocol
+         (e.g., TWAMP) is used instead, it can be indicated
+         using the protocol-id defined in RPC operation of
+         retrieval methods for connectionless OAM (RFC 8533),
+         i.e., set protocol-id as OWAMP.  Note that only one
+         measurement protocol for delay is specified for
+         interoperability reasons.";
+        leaf time-unit-value {
+          type identityref {
+            base lime:time-unit-type;
+          }
+          default "lime:milliseconds";
+          description
+            "Time units, where the options are s, ms, ns, etc.";
+        }
+
+        leaf min-delay-value {
+          type uint32;
+          description
+            "Minimum delay value observed.";
+        }
+
+        leaf max-delay-value {
+          type uint32;
+          description
+            "Maximum delay value observed.";
+        }
+
+        leaf average-delay-value {
+          type uint32;
+          description
+            "Average delay value observed.";
+        }
+      }  // container session-delay-statistics
+    }  // grouping session-delay-statistics
+
+    grouping session-jitter-statistics {
+      description
+        "Grouping for per session jitter statistics.";
+      container session-jitter-statistics {
+        description
+          "Summarized information about session jitter.  By default,
+         jitter is measured using IP Packet Delay Variation
+         (IPDV) as defined in RFC 3393.  When the other measurement
+         method is used instead (e.g., Packet Delay Variation used
+         in ITU-T Recommendation Y.1540, it can be indicated using
+         protocol-id-meta-data defined in RPC operation of
+         retrieval methods for connectionless OAM (RFC 8533).
+         Note that only one measurement method for jitter is
+         specified for interoperability reasons.";
+        leaf unit-value {
+          type identityref {
+            base lime:time-unit-type;
+          }
+          default "lime:milliseconds";
+          description
+            "Time units, where the options are s, ms, ns, etc.";
+        }
+
+        leaf min-jitter-value {
+          type uint32;
+          description
+            "Minimum jitter value observed.";
+        }
+
+        leaf max-jitter-value {
+          type uint32;
+          description
+            "Maximum jitter value observed.";
+        }
+
+        leaf average-jitter-value {
+          type uint32;
+          description
+            "Average jitter value observed.";
+        }
+      }  // container session-jitter-statistics
+    }  // grouping session-jitter-statistics
+
+    grouping session-path-verification-statistics {
+      description
+        "Grouping for path verification statistics per session.";
+      container session-path-verification-statistics {
+        description
+          "OAM path verification statistics per session.";
+        leaf verified-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          description
+            "Total number of OAM packets that
+           went through a path as intended.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+
+        leaf failed-count {
+          type uint32 {
+            range "0..4294967295";
+          }
+          description
+            "Total number of OAM packets that
+           went through an unintended path.
+           The value of count will be set to zero (0)
+           on creation and will thereafter increase
+           monotonically until it reaches a maximum value
+           of 2^32-1 (4294967295 decimal), when it wraps
+           around and starts increasing again from zero.";
+        }
+      }  // container session-path-verification-statistics
+    }  // grouping session-path-verification-statistics
+
+    grouping session-type {
+      description
+        "This object indicates which kind of activation will
+       be used by the current session.";
+      leaf session-type {
+        type enumeration {
+          enum "proactive" {
+            value 0;
+            description
+              "The current session is a proactive session.";
+          }
+          enum "on-demand" {
+            value 1;
+            description
+              "The current session is an on-demand session.";
+          }
+        }
+        default "on-demand";
+        description
+          "Indicate which kind of activation will be used
+         by the current session.";
+      }
+    }  // grouping session-type
+
+    identity tp-address-technology-type {
+      description "Test point address type.";
+    }
+
+    identity mac-address-type {
+      base tp-address-technology-type;
+      description "MAC address type.";
+    }
+
+    identity ipv4-address-type {
+      base tp-address-technology-type;
+      description "IPv4 address type.";
+    }
+
+    identity ipv6-address-type {
+      base tp-address-technology-type;
+      description "IPv6 address type.";
+    }
+
+    identity tp-attribute-type {
+      base tp-address-technology-type;
+      description
+        "Test point attribute type.";
+    }
+
+    identity router-id-address-type {
+      base tp-address-technology-type;
+      description "System ID address type.";
+    }
+
+    identity as-number-address-type {
+      base tp-address-technology-type;
+      description "AS number address type.";
+    }
+
+    identity route-distinguisher-address-type {
+      base tp-address-technology-type;
+      description
+        "Route Distinguisher address type.";
+    }
+
+    grouping tp-address {
+      description "TP Address.";
+      leaf tp-location-type {
+        type identityref {
+          base tp-address-technology-type;
+        }
+        mandatory true;
+        description
+          "Test point address type.";
+      }
+
+      container mac-address {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:mac-address-type')" {
+          description "MAC address type.";
+        }
+        description
+          "MAC address based TP addressing.";
+        leaf mac-address {
+          type yang:mac-address;
+          mandatory true;
+          description "MAC address.";
+        }
+      }  // container mac-address
+
+      container ipv4-address {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:ipv4-address-type')" {
+          description "IPv4 address type.";
+        }
+        description
+          "IP address based TP addressing.";
+        leaf ipv4-address {
+          type inet:ipv4-address;
+          mandatory true;
+          description "IPv4 address.";
+        }
+      }  // container ipv4-address
+
+      container ipv6-address {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:ipv6-address-type')" {
+          description "IPv6 address type.";
+        }
+        description
+          "IPv6 address based TP addressing.";
+        leaf ipv6-address {
+          type inet:ipv6-address;
+          mandatory true;
+          description "IPv6 address.";
+        }
+      }  // container ipv6-address
+
+      container tp-attribute {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:tp-attribute-type')" {
+          description
+            "Test point attribute type.";
+        }
+        description
+          "Test Point Attribute Container.";
+        leaf tp-attribute-type {
+          type address-attribute-type;
+          description "Test point type.";
+        }
+
+        choice tp-attribute-value {
+          description "Test point value.";
+          leaf ip-prefix {
+            type inet:ip-prefix;
+            description
+              "Generic IPv4/IPv6 prefix.  See Sections 3.2.13 and
+               3.2.14 of RFC 8029.";
+            reference
+              "RFC 8029: Detecting Multiprotocol Label
+              Switched (MPLS) Data-Plane Failures";
+
+          }
+          leaf bgp {
+            type inet:ip-prefix;
+            description
+              "BGP Labeled IPv4/IPv6 Prefix.  See Sections
+               3.2.11 and 3.2.12 of RFC 8029 for details.";
+            reference
+              "RFC 8029: Detecting Multiprotocol Label
+              Switched (MPLS) Data-Plane Failures";
+
+          }
+          leaf tunnel-interface {
+            type uint32;
+            description
+              "Basic IPv4/IPv6 Tunnel ID.  See Sections 3.2.3
+               and 3.2.4 of RFC 8029 for details.";
+            reference
+              "RFC 8029: Detecting Multiprotocol Label
+              Switched (MPLS) Data-Plane Failures.";
+
+          }
+
+          case pw {
+            leaf remote-pe-address {
+              type inet:ip-address;
+              description
+                "Remote PE address.  See Section 3.2.8
+               of RFC 8029 for details.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+
+            leaf pw-id {
+              type uint32;
+              description
+                "Pseudowire ID is a non-zero 32-bit ID.  See Sections
+               3.2.8 and 3.2.9 of RFC 8029 for details.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+          }  // case pw
+
+          case vpls {
+            leaf route-distinguisher {
+              type rt:route-distinguisher;
+              description
+                "Route Distinguisher is an 8-octet identifier
+               used to distinguish information about various
+               L2VPNs advertised by a node.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+
+            leaf sender-ve-id {
+              type uint16;
+              description
+                "Sender's VE ID.  The VE ID (VPLS Edge Identifier)
+               is a 2-octet identifier.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+
+            leaf receiver-ve-id {
+              type uint16;
+              description
+                "Receiver's VE ID.  The VE ID (VPLS Edge Identifier)
+               is a 2-octet identifier.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+          }  // case vpls
+          choice root-address {
+            description
+              "Root address choice.";
+            case ip-address {
+              leaf source-address {
+                type inet:ip-address;
+                description "IP address.";
+              }
+
+              leaf group-ip-address {
+                type inet:ip-address;
+                description
+                  "Group IP address.";
+              }
+            }  // case ip-address
+            leaf as-number {
+              type inet:as-number;
+              description
+                "The AS number that identifies an Autonomous
+                   System.";
+            }
+            leaf lsp-id {
+              type string;
+              description
+                "LSP ID is an identifier of a LSP
+                   within a MPLS network.";
+              reference
+                "RFC 8029: Detecting Multiprotocol Label
+                Switched (MPLS) Data-Plane Failures";
+
+            }
+          }  // choice root-address
+        }  // choice tp-attribute-value
+      }  // container tp-attribute
+
+      container system-info {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:router-id-address-type')" {
+          description
+            "System ID address type.";
+        }
+        description "Router ID container.";
+        leaf router-id {
+          type rt:router-id;
+          description
+            "Router ID assigned to this node.";
+        }
+      }  // container system-info
+    }  // grouping tp-address
+
+    grouping tp-address-ni {
+      description
+        "Test point address with VRF.";
+      leaf ni {
+        type routing-instance-ref;
+        description
+          "The ni is used to describe virtual resource partitioning
+         that may be present on a network device.  An example of a
+         common industry term for virtual resource partitioning is
+         'VRF instance'.";
+      }
+
+      uses tp-address;
+    }  // grouping tp-address-ni
+
+    grouping connectionless-oam-tps {
+      description
+        "List of neighboring test points related to connectionless OAM.";
+      list oam-neighboring-tps {
+        key "index";
+        description
+          "List of neighboring test points in the same layer that are
+         related to current test point.  If the neighboring test point
+         is placed after the current test point, the position is
+         specified as +1.  If the neighboring test point is placed
+         before the current test point, the position is specified
+         as -1; if no neighboring test points are placed before or
+         after the current test point in the same layer, the
+         position is specified as 0.";
+        leaf index {
+          type uint16 {
+            range "0..65535";
+          }
+          description
+            "Index of a list of neighboring test points
+           in layers up and down the stack for
+           the same interface that are related to the
+           current test point.";
+        }
+
+        leaf position {
+          type int8 {
+            range "-1..1";
+          }
+          default "0";
+          description
+            "The position of the neighboring test point relative to
+           the current test point.  Level 0 indicates a test point
+           corresponding to a specific index in the same layer as
+           the current test point.  -1 means there is a test point
+           corresponding to a specific index in the test point down
+           the stack, and +1 means there is a test point corresponding
+           to a specific index in the test point up the stack.";
+        }
+
+        choice tp-location {
+          description "TP location.";
+          case mac-address {
+            description
+              "MAC address based TP addressing.";
+            leaf mac-address-location {
+              type yang:mac-address;
+              description "MAC address.";
+            }
+          }  // case mac-address
+
+          case ipv4-address {
+            description
+              "IP address based TP addressing.";
+            leaf ipv4-address-location {
+              type inet:ipv4-address;
+              description "IPv4 address.";
+            }
+          }  // case ipv4-address
+
+          case ipv6-address {
+            description
+              "IPv6 address based TP addressing.";
+            leaf ipv6-address-location {
+              type inet:ipv6-address;
+              description "IPv6 address.";
+            }
+          }  // case ipv6-address
+
+          case as-number {
+            description
+              "AS number for point-to-multipoint OAM.";
+            leaf as-number-location {
+              type inet:as-number;
+              description
+                "AS number location.";
+            }
+          }  // case as-number
+
+          case router-id {
+            description "System ID.";
+            leaf router-id-location {
+              type rt:router-id;
+              description
+                "System ID location.";
+            }
+          }  // case router-id
+        }  // choice tp-location
+      }  // list oam-neighboring-tps
+    }  // grouping connectionless-oam-tps
+
+    grouping tp-technology {
+      description "OAM technology.";
+      choice technology {
+        default "technology-null";
+        description "Technology choice.";
+        case technology-null {
+          description
+            "This is a placeholder when no technology is needed.";
+          leaf tech-null {
+            type empty;
+            description
+              "There is no technology to be defined.";
+          }
+        }  // case technology-null
+      }  // choice technology
+    }  // grouping tp-technology
+
+    grouping tp-tools {
+      description "Test point OAM toolset.";
+      container tp-tools {
+        description
+          "Container for test point OAM toolset.";
+        leaf continuity-check {
+          type boolean;
+          mandatory true;
+          description
+            "A flag indicating whether or not the
+           Continuity Check function is supported.";
+          reference
+            "RFC 792: INTERNET CONTROL MESSAGE PROTOCOL
+             RFC 4443: Internet Control Message Protocol (ICMPv6)
+                for the Internet Protocol Version 6 (IPv6) Specification
+             RFC 5880: Bidirectional Forwarding Detection
+             RFC 5881: BFD for IPv4 and IPv6
+             RFC 5883: BFD for Multihop Paths
+             RFC 5884: BFD for MPLS Label Switched Paths
+             RFC 5885: BFD for PW VCCV
+             RFC 6450: Multicast Ping Protocol
+             RFC 8029: Detecting Multiprotocol Label Switched (MPLS)
+                Data-Plane Failures";
+
+        }
+
+        leaf path-discovery {
+          type boolean;
+          mandatory true;
+          description
+            "A flag indicating whether or not the
+           path discovery function is supported.";
+          reference
+            "RFC 792: INTERNET CONTROL MESSAGE PROTOCOL
+             RFC 4443: Internet Control Message Protocol (ICMPv6)
+                for the Internet Protocol Version 6 (IPv6) Specification
+             RFC 4884: Extended ICMP to Support Multi-Part Messages
+             RFC 5837: Extending ICMP for Interface and Next-Hop
+                Identification
+             RFC 8029: Detecting Multiprotocol Label Switched (MPLS)
+                Data-Plane Failures";
+
+        }
+      }  // container tp-tools
+    }  // grouping tp-tools
+
+    grouping test-point-location-info {
+      description "Test point location.";
+      uses tp-technology;
+
+      uses tp-tools;
+
+      anydata root {
+        yangmnt:mount-point "root";
+        description
+          "Root for models supported per test point.";
+      }
+
+      uses connectionless-oam-tps;
+    }  // grouping test-point-location-info
+
+    grouping test-point-locations {
+      description
+        "Group of test point locations.";
+      leaf tp-location-type {
+        type identityref {
+          base tp-address-technology-type;
+        }
+        description
+          "Test point location type.";
+      }
+
+      container ipv4-location-type {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:ipv4-address-type')" {
+          description
+            "When test point location type is equal to IPv4 address.";
+        }
+        description
+          "Container for IPv4 location types.";
+        container test-point-ipv4-location-list {
+          description
+            "Serves as top-level container
+           for test point location list.";
+          list test-point-locations {
+            key "ipv4-location ni";
+            description
+              "List of test point locations.";
+            leaf ipv4-location {
+              type inet:ipv4-address;
+              description "IPv4 address.";
+            }
+
+            leaf ni {
+              type routing-instance-ref;
+              description
+                "The ni is used to describe the
+               corresponding network instance";
+            }
+
+            uses test-point-location-info;
+          }  // list test-point-locations
+        }  // container test-point-ipv4-location-list
+      }  // container ipv4-location-type
+
+      container ipv6-location-type {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:ipv6-address-type')" {
+          description
+            "When test point location is equal to IPv6 address.";
+        }
+        description
+          "ipv6 location type container.";
+        container test-point-ipv6-location-list {
+          description
+            "Serves as top-level container
+           for test point location list.";
+          list test-point-locations {
+            key "ipv6-location ni";
+            description
+              "List of test point locations.";
+            leaf ipv6-location {
+              type inet:ipv6-address;
+              description "IPv6 address.";
+            }
+
+            leaf ni {
+              type routing-instance-ref;
+              description
+                "The ni is used to describe the
+               corresponding network instance.";
+            }
+
+            uses test-point-location-info;
+          }  // list test-point-locations
+        }  // container test-point-ipv6-location-list
+      }  // container ipv6-location-type
+
+      container mac-location-type {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:mac-address-type')" {
+          description
+            "When test point location type is equal to MAC address.";
+        }
+        description
+          "Container for MAC address location types.";
+        container test-point-mac-address-location-list {
+          description
+            "Serves as top-level container
+           for test point location list.";
+          list test-point-locations {
+            key "mac-address-location";
+            description
+              "List of test point locations.";
+            leaf mac-address-location {
+              type yang:mac-address;
+              description "MAC address.";
+            }
+
+            uses test-point-location-info;
+          }  // list test-point-locations
+        }  // container test-point-mac-address-location-list
+      }  // container mac-location-type
+
+      container group-as-number-location-type {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:as-number-address-type')" {
+          description
+            "When test point location type is equal to AS number.";
+        }
+        description
+          "Container for AS number location types.";
+        container test-point-as-number-location-list {
+          description
+            "Serves as top-level container
+           for test point location list.";
+          list test-point-locations {
+            key "as-number-location";
+            description
+              "List of test point locations.";
+            leaf as-number-location {
+              type inet:as-number;
+              description
+                "AS number for point-to-multipoint OAM.";
+            }
+
+            leaf ni {
+              type routing-instance-ref;
+              description
+                "The ni is used to describe the
+               corresponding network instance.";
+            }
+
+            uses test-point-location-info;
+          }  // list test-point-locations
+        }  // container test-point-as-number-location-list
+      }  // container group-as-number-location-type
+
+      container group-router-id-location-type {
+        when
+          "derived-from-or-self(../tp-location-type,"
+            + "'cl-oam:router-id-address-type')" {
+          description
+            "When test point location type is equal to system-info.";
+        }
+        description
+          "Container for system ID location types.";
+        container test-point-system-info-location-list {
+          description
+            "Serves as top-level container for
+           test point location list.";
+          list test-point-locations {
+            key "router-id-location";
+            description
+              "List of test point locations.";
+            leaf router-id-location {
+              type rt:router-id;
+              description "System ID.";
+            }
+
+            leaf ni {
+              type routing-instance-ref;
+              description
+                "The ni is used to describe the
+               corresponding network instance.";
+            }
+
+            uses test-point-location-info;
+          }  // list test-point-locations
+        }  // container test-point-system-info-location-list
+      }  // container group-router-id-location-type
+    }  // grouping test-point-locations
+
+    augment /nd:networks/nd:network/nd:node {
+      description
+        "Augments the /networks/network/node path defined in the
+       ietf-network module (RFC 8345) with test-point-locations
+       grouping.";
+      uses test-point-locations;
+    }
+
+    grouping timestamp {
+      description "Grouping for timestamp.";
+      leaf timestamp-type {
+        type identityref {
+          base lime:timestamp-type;
+        }
+        description
+          "Type of timestamp, such as Truncated PTP or NTP.";
+      }
+
+      container timestamp-64bit {
+        when
+          "derived-from-or-self(../timestamp-type,"
+            + "'lime:truncated-ptp')"
+            + "or derived-from-or-self(../timestamp-type,"
+            + "'lime:ntp64')" {
+          description
+            "Only applies when PTP truncated or 64-bit NTP timestamp.";
+        }
+        description
+          "Container for 64-bit timestamp.  The Network Time Protocol
+         (NTP) 64-bit timestamp format is defined in RFC 5905.  The
+         PTP truncated timestamp format is defined in IEEE 1588v1.";
+        reference
+          "RFC 5905: Network Time Protocol Version 4: Protocol and
+              Algorithms Specification
+          IEEE 1588v1: IEEE Standard for a Precision Clock
+              Synchronization Protocol for Networked Measurement and
+              Control Systems Version 1";
+
+        leaf timestamp-sec {
+          type uint32;
+          description
+            "Absolute timestamp in seconds as per IEEE 1588v2
+           or seconds part in 64-bit NTP timestamp.";
+        }
+
+        leaf timestamp-nanosec {
+          type uint32;
+          description
+            "Fractional part in nanoseconds as per IEEE 1588v2
+           or fractional part in 64-bit NTP timestamp.";
+        }
+      }  // container timestamp-64bit
+
+      container timestamp-80bit {
+        when
+          "derived-from-or-self(../timestamp-type, 'lime:ptp80')" {
+          description
+            "Only applies when 80-bit PTP timestamp.";
+        }
+        if-feature ptp-long-format;
+        description
+          "Container for 80-bit timestamp.";
+        leaf timestamp-sec {
+          type uint64 {
+            range "0..281474976710655";
+          }
+          description
+            "48-bit timestamp in seconds as per IEEE 1588v2.";
+        }
+
+        leaf timestamp-nanosec {
+          type uint32;
+          description
+            "Fractional part in nanoseconds as per IEEE 1588v2.";
+        }
+      }  // container timestamp-80bit
+
+      container ntp-timestamp-32bit {
+        when
+          "derived-from-or-self(../timestamp-type,"
+            + "'lime:truncated-ntp')" {
+          description
+            "Only applies when 32-bit NTP short-format timestamp.";
+        }
+        if-feature ntp-short-format;
+        description
+          "Container for 32-bit timestamp RFC5905.";
+        reference
+          "RFC 5905: Network Time Protocol Version 4: Protocol and
+          Algorithms Specification.";
+
+        leaf timestamp-sec {
+          type uint16;
+          description
+            "Timestamp in seconds as per short-format NTP.";
+        }
+
+        leaf timestamp-nanosec {
+          type uint16;
+          description
+            "Truncated fractional part in 16-bit NTP timestamp.";
+        }
+      }  // container ntp-timestamp-32bit
+
+      container icmp-timestamp-32bit {
+        when
+          "derived-from-or-self(../timestamp-type, 'lime:icmp')" {
+          description
+            "Only applies when ICMP timestamp.";
+        }
+        if-feature icmp-timestamp;
+        description
+          "Container for 32-bit timestamp.  See RFC 792 for ICMP
+         timestamp format.";
+        leaf timestamp-millisec {
+          type uint32;
+          description
+            "Timestamp in milliseconds for ICMP timestamp.";
+        }
+      }  // container icmp-timestamp-32bit
+    }  // grouping timestamp
+
+    grouping path-discovery-data {
+      description
+        "Data output from nodes related to path discovery.";
+      container src-test-point {
+        description "Source test point.";
+        uses tp-address-ni;
+      }  // container src-test-point
+
+      container dest-test-point {
+        description
+          "Destination test point.";
+        uses tp-address-ni;
+      }  // container dest-test-point
+
+      leaf sequence-number {
+        type uint64;
+        default "0";
+        description
+          "Sequence number in data packets.  A value of
+         zero indicates that no sequence number is sent.";
+      }
+
+      leaf hop-cnt {
+        type uint8;
+        default "0";
+        description
+          "Hop count.  A value of zero indicates
+         that no hop count is sent.";
+      }
+
+      uses session-packet-statistics;
+
+      uses session-error-statistics;
+
+      uses session-delay-statistics;
+
+      uses session-jitter-statistics;
+
+      container path-verification {
+        description
+          "Optional information related to path verification.";
+        leaf flow-info {
+          type string;
+          description
+            "Information that refers to the flow.";
+        }
+
+        uses session-path-verification-statistics;
+      }  // container path-verification
+
+      container path-trace-info {
+        description
+          "Optional per-hop path trace information about test points.
+         The path trace information list typically has a single
+         element for per-hop cases such as path-discovery RPC operation
+         but allows a list of hop-related information for other types of
+         data retrieval methods.";
+        list path-trace-info-list {
+          key "index";
+          description
+            "Path trace information list.";
+          leaf index {
+            type uint32;
+            description
+              "Trace information index.";
+          }
+
+          uses tp-address-ni;
+
+          uses timestamp;
+
+          leaf ingress-intf-name {
+            type if:interface-ref;
+            description
+              "Ingress interface name.";
+          }
+
+          leaf egress-intf-name {
+            type if:interface-ref;
+            description
+              "Egress interface name.";
+          }
+
+          leaf queue-depth {
+            type uint32;
+            description
+              "Length of the queue of the interface from where
+             the packet is forwarded out.  The queue depth could
+             be the current number of memory buffers used by the
+             queue, and a packet can consume one or more memory buffers,
+             thus constituting device-level information.";
+          }
+
+          leaf transit-delay {
+            type uint32;
+            description
+              "Time in nanoseconds that the packet spent transiting a
+             node.";
+          }
+
+          leaf app-meta-data {
+            type uint64;
+            description
+              "Application-specific data added by node.";
+          }
+        }  // list path-trace-info-list
+      }  // container path-trace-info
+    }  // grouping path-discovery-data
+
+    grouping continuity-check-data {
+      description
+        "Continuity Check data output from nodes.";
+      container src-test-point {
+        description "Source test point.";
+        uses tp-address-ni;
+
+        leaf egress-intf-name {
+          type if:interface-ref;
+          description
+            "Egress interface name.";
+        }
+      }  // container src-test-point
+
+      container dest-test-point {
+        description
+          "Destination test point.";
+        uses tp-address-ni;
+
+        leaf ingress-intf-name {
+          type if:interface-ref;
+          description
+            "Ingress interface name.";
+        }
+      }  // container dest-test-point
+
+      leaf sequence-number {
+        type uint64;
+        default "0";
+        description
+          "Sequence number in data packets.  A value of
+         zero indicates that no sequence number is sent.";
+      }
+
+      leaf hop-cnt {
+        type uint8;
+        default "0";
+        description
+          "Hop count.  A value of zero indicates
+         that no hop count is sent.";
+      }
+
+      uses session-packet-statistics;
+
+      uses session-error-statistics;
+
+      uses session-delay-statistics;
+
+      uses session-jitter-statistics;
+    }  // grouping continuity-check-data
+
+    container cc-session-statistics-data {
+      if-feature continuity-check;
+      config false;
+      description
+        "CC operational information.";
+      list cc-session-statistics {
+        key "type";
+        description
+          "List of CC session statistics data.";
+        leaf type {
+          type identityref {
+            base traffic-type;
+          }
+          description "Type of traffic.";
+        }
+
+        container cc-ipv4-sessions-statistics {
+          when "../type = 'ipv4'" {
+            description
+              "Only applies when traffic type is IPv4.";
+          }
+          description "CC ipv4 sessions.";
+          uses cc-session-statistics;
+        }  // container cc-ipv4-sessions-statistics
+
+        container cc-ipv6-sessions-statistics {
+          when "../type = 'ipv6'" {
+            description
+              "Only applies when traffic type is IPv6.";
+          }
+          description "CC IPv6 sessions.";
+          uses cc-session-statistics;
+        }  // container cc-ipv6-sessions-statistics
+      }  // list cc-session-statistics
+    }  // container cc-session-statistics-data
+  }  // module ietf-connectionless-oam
