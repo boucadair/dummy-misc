@@ -975,10 +975,10 @@ module ietf-connectionless-oam {
 
       uses tp-tools;
 
-      anydata root {
-        yangmnt:mount-point "root";
+      container root {
         description
           "Root for models supported per test point.";
+        yangmnt:mount-point "root";
       }
 
       uses connectionless-oam-tps;
