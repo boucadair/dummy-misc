@@ -1,7 +1,7 @@
 module ietf-bfd-met-keyed-isaac {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-bfd-met-keyed-isaac";
-  prefix "bfdmia";
+  prefix bfd-mia;
 
   import ietf-key-chain {
     prefix key-chain;
