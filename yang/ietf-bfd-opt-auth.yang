@@ -98,8 +98,8 @@ module ietf-bfd-opt-auth {
 
   feature optimized-auth {
     description
-      "When enabled, this implementation supports optimized
-       authentication as described in this document.";
+      "Indicates that the implementation supports optimized
+       authentication.";
   }
 
   identity optimized-md5-meticulous-keyed-isaac {
@@ -132,7 +132,6 @@ module ietf-bfd-opt-auth {
       description
         "Interval of time after which strong authentication
          should be utilized to prevent an on-path-attacker attack.
-         Default is 1 minute.
 
          A value of zero means that we do not do periodic
          reauthentication using the strong authentication method.
@@ -150,7 +149,7 @@ module ietf-bfd-opt-auth {
     uses bfd-opt-auth-config;
 
     description
-      "Augment the 'authentication' container for single hop BFD
+      "Augments the 'authentication' container for single hop BFD
        module to add attributes related to BFD optimized
        authentication.";
   }
