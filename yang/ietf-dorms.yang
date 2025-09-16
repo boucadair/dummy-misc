@@ -62,7 +62,7 @@ module ietf-dorms {
         "Metadata scaffold for source-specific multicast
          channels.";
       list sender {
-        key source-address;
+        key address;
         description
           "Identifies a sender for DORMS.";
 
