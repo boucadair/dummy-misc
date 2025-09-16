@@ -73,12 +73,13 @@ module ietf-dorms {
         }
 
         list group {
-          must '(re-match(./group-address, "[^:]*") and ' +
-                're-match(../source-address, "[^:]*")) or ' +
-               '(re-match(./group-address, ".*:.*") and ' +
-                're-match(../source-address, ".*:.*"))' {
-            error-message 'A group address type must match '+
-                          'its parent source address type';
+          must '(re-match(./address, "[^:]*") and '
+             +   're-match(../address, "[^:]*")) or '
+             + '(re-match(./address, ".*:.*") and '
+             +  're-match(../address, ".*:.*"))' {
+            error-message
+              'A group address type must match its parent source
+               address type';
           }
           key address;
           description
