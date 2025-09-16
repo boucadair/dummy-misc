@@ -73,7 +73,6 @@ module ietf-dorms {
         }
 
         list group {
-          key group-address;
           must '(re-match(./group-address, "[^:]*") and ' +
                 're-match(../source-address, "[^:]*")) or ' +
                '(re-match(./group-address, ".*:.*") and ' +
@@ -81,6 +80,7 @@ module ietf-dorms {
             error-message 'A group-address type must match '+
                           'its parent source-address type';
           }
+          key group-address;
           description "Metadata for a DORMS (S,G).";
           leaf group-address {
             type rt-types:ip-multicast-group-address;
