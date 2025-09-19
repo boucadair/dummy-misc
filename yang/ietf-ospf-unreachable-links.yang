@@ -55,7 +55,7 @@ module ietf-ospf-unreachable-links {
       "RFC XXXX: Advertising Unreachable Links in OSPF";
   }
 
-  identity functional-capability {
+  identity functional-capability {  //Med: why not all cap are not listed?
     description
       "Base identity for router informational capabilities.";
   }
