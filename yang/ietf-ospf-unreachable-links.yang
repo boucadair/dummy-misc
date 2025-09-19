@@ -8,7 +8,7 @@ module ietf-ospf-unreachable-links {
     prefix rt;
     reference
       "RFC 8349: A YANG Data Model for Routing
-       Management (NMDA Version)";
+                 Management (NMDA Version)";
   }
   import ietf-ospf {
     prefix ospf;
@@ -34,17 +34,12 @@ module ietf-ospf-unreachable-links {
      Copyright (c) 2025 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject to
-     the license terms contained in, the Revised BSD License set
-     forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (https://trustee.ietf.org/license-info).
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
 
-     This version of this YANG module is part of RFC XXXX;
-     see the RFC itself for full legal notices.";
-  reference
-    "RFC XXXX";
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2025-08-20 {
     description
@@ -61,8 +56,8 @@ module ietf-ospf-unreachable-links {
   identity unreachable-link {
     base ospf-unreach-link:functional-capability;
     description
-      "When set, the router is capable of advertising unreachable
-       links.";
+      "Indicates that the router is capable of advertising
+       unreachable links.";
   }
 
   grouping router-functional-capabilities {
@@ -70,15 +65,15 @@ module ietf-ospf-unreachable-links {
       "Grouping for OSPF router capabilities TLV types.";
     reference
       "RFC 7770: Extensions to OSPF for Advertising Optional
-       Router Capabilities";
+                 Router Capabilities";
     container router-functional-capabilities {
-      leaf-list functional-capabilities {
+      leaf-list functional-capability {
         type identityref {
           base functional-capability;
         }
         description
-          "List of functional capabilities. This list will
-           contain the identities for the functional
+          "List of functional capabilities. This list
+           contains the identities for the functional
            capabilities supported by the router.";
       }
       description
@@ -101,7 +96,9 @@ module ietf-ospf-unreachable-links {
         type boolean;
         default "false";
         description
-          "Enable advertisement of unreachable links.";
+          "Controls advertisement of unreachable links.
+           It is enabled when set to true and desiabled
+           when set to false.";
       }
       description
         "OSPF unreachable link advertisement configuration.";
@@ -123,8 +120,11 @@ module ietf-ospf-unreachable-links {
     }
     description
       "OSPFv2 Opaque Area-Scoped Router-Information LSA Router
-       Functional capabilities (RFC 7770).";
+       Functional capabilities.";
     uses router-functional-capabilities;
+    reference
+      "RFC 7770: Extensions to OSPF for Advertising Optional
+                 Router Capabilities";
   }
 
   augment "/rt:routing/"
@@ -141,8 +141,11 @@ module ietf-ospf-unreachable-links {
     }
     description
       "OSPFv2 Opaque AS-Scoped Router-Information LSA Router
-       Functional capabilities (RFC 7770).";
+       Functional capabilities.";
     uses router-functional-capabilities;
+    reference
+      "RFC 7770: Extensions to OSPF for Advertising Optional
+                 Router Capabilities";
   }
 
   augment "/rt:routing/"
@@ -159,8 +162,11 @@ module ietf-ospf-unreachable-links {
     }
     description
       "OSPFv3 Area-Scoped Router-Information LSA Router
-       Functional capabilities (RFC 7770).";
+       Functional capabilities.";
     uses router-functional-capabilities;
+    reference
+      "RFC 7770: Extensions to OSPF for Advertising Optional
+                 Router Capabilities";
   }
 
   augment "/rt:routing/"
@@ -178,7 +184,10 @@ module ietf-ospf-unreachable-links {
     }
     description
       "OSPFv3 AS-Scoped Router-Information LSA Router
-       Functional capabilities (RFC 7770).";
+       Functional capabilities.";
     uses router-functional-capabilities;
+    reference
+      "RFC 7770: Extensions to OSPF for Advertising Optional
+                 Router Capabilities";
   }
 }
