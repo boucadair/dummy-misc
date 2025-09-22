@@ -7,8 +7,8 @@ module ietf-ospf-unreachable-links {
   import ietf-routing {
     prefix rt;
     reference
-      "RFC 8349: A YANG Data Model for Routing
-                 Management (NMDA Version)";
+      "RFC 8349: A YANG Data Model for Routing Management
+                 (NMDA Version)";
   }
   import ietf-ospf {
     prefix ospf;
@@ -17,7 +17,7 @@ module ietf-ospf-unreachable-links {
   }
 
   organization
-    "IETF LSR - Link State Routing Working Group";
+    "IETF Link State Routing (LSR) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/lsr/>
      WG List:  <mailto:lsr@ietf.org>
@@ -55,7 +55,7 @@ module ietf-ospf-unreachable-links {
       "RFC XXXX: Advertising Unreachable Links in OSPF";
   }
 
-  identity functional-capability {  //Med: why not all cap are not listed?
+  identity functional-capability {
     description
       "Base identity for router informational capabilities.";
   }
@@ -104,11 +104,11 @@ module ietf-ospf-unreachable-links {
         default "false";
         description
           "Controls advertisement of unreachable links.
-           It is enabled when set to true and desiabled
+           It is enabled when set to true and desabled
            when set to false.";
       }
       description
-        "OSPF unreachable link advertisement configuration.";
+        "OSPF unreachable link advertisement parameters.";
     }
   }
 
