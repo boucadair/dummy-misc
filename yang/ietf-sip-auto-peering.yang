@@ -208,12 +208,13 @@ module ietf-sip-auto-peering {
         type inet:domain-name;
       }
       description
-        "IP Address or host name of the entity";
+        "IP Address or host name of the entity.";
     }
 
     leaf port {
       type inet:port-number;
-      description "Entity's port number.";
+      description
+        "Entity's port number.";
     }
   }
 
@@ -556,8 +557,7 @@ module ietf-sip-auto-peering {
           service provider communicate this information by reference,
           that is, through a URL. The enterprise network is required to
           de-reference this URL in order to obtain the DID number
-          ranges allocated by the SIP service provider. Refer to the
-          example provided in Section 9.1.";
+          ranges allocated by the SIP service provider.";
 
         leaf index {
           type uint16;
@@ -759,8 +759,8 @@ module ietf-sip-auto-peering {
             use asymmetric RTP.";
           reference
             "RFC 4961: Symmetric RTP / RTP Control Protocol (RTCP),
-            RFC 7362: Latching: Hosted NAT Traversal (HNT) for Media
-            in Real-Time Communication";
+             RFC 7362: Latching: Hosted NAT Traversal (HNT) for Media
+                       in Real-Time Communication";
         }
       }
 
@@ -814,7 +814,8 @@ module ietf-sip-auto-peering {
             the RTP profile extension for RTP-based feedback.";
           reference
             "RFC 4585: Extended RTP Profile for Real-time Transport
-            Control Protocol (RTCP)-Based Feedback (RTP/AVPF)";
+                       Control Protocol (RTCP)-Based Feedback
+                       (RTP/AVPF)";
         }
       }
     }
@@ -841,8 +842,8 @@ module ietf-sip-auto-peering {
           the newer standard while a value of false indicates that the
           service provider prefers the older standard";
         reference
-          "RFC4733 & RFC 2833: RTP Payload for DTMF Digits, Telephony
-          Tones, and Telephony Signals";
+          "RFC 4733: RTP Payload for DTMF Digits,
+           RFC 2833: Telephony Tones, and Telephony Signals";
       }
     }
 
@@ -903,10 +904,11 @@ module ietf-sip-auto-peering {
             the service provider. Possible values in this list include
             'SDES' and 'DTLS-SRTP'.";
           reference
-            "RFC4568: Session Description Protocol (SDP) Security
-            Descriptions for Media Streams, RFC5764: Datagram Transport
-            Layer Security (DTLS) Extension to Establish Keys for the
-            Secure Real-time Transport Protocol (SRTP)";
+            "RFC 4568: Session Description Protocol (SDP) Security
+                       Descriptions for Media Streams, RFC5764: Datagram
+                       Transport Layer Security (DTLS) Extension to 
+                       Establish Keys for the Secure Real-time Transport
+                       Protocol (SRTP)";
         }
       }
 
@@ -978,8 +980,8 @@ module ietf-sip-auto-peering {
             included in the capability set if the value of the
             certificate-delegation leaf node is set to true.";
           reference
-            "RFC8555: Automatic Certificate Management Environment
-            (ACME)";
+            "RFC 8555: Automatic Certificate Management Environment
+                      (ACME)";
         }
       }
     }
@@ -990,7 +992,7 @@ module ietf-sip-auto-peering {
         "A list of SIP option tags (extensions) supported by the service
          provider network.";
       reference
-        "https://www.iana.org/assignments/sip-parameters/sip-parameters-4.csv";
+        "https://www.iana.org/assignments/sip-parameters/sip-parameters.xhtml";
     }
   }
 }
