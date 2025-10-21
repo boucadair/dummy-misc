@@ -1,0 +1,101 @@
+module iana-sip-option-tags {
+  yang-version 1.1;
+  namespace "urn:ietf:params:xml:ns:yang:iana-sip-option-tags";
+  prefix iana-sip-option-tags;
+
+  organization
+    "Internet Assigned Numbers Authority (IANA)";
+
+  contact
+    "Internet Assigned Numbers Authority
+
+     ICANN
+     12025 Waterfront Drive, Suite 300
+     Los Angeles, CA 90094
+
+     Tel: +1 424 254 5300
+
+     <mailto:iana@iana.org>";
+
+  description
+    "This YANG module translates IANA registry SIP 'Option Tags'
+     to YANG derived types.
+
+     Copyright (c) 2025 IETF Trust and the persons identified as
+     authors of the code. All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject to
+     the license terms contained in, the Revised BSD License set
+     forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     The initial version of this YANG module is part of RFC XXXX;
+     see the RFC itself for full legal notices.
+
+     The latest version of this YANG module is available at
+     <IANA_URL>.";
+
+  reference
+    "Session Initiation Protocol (SIP) Parameters
+     (https://www.iana.org/assignments/sip-parameters/sip-parameters.xhtml)";
+
+  revision 2025-10-20 {
+    description
+      "Initial revision.";
+    reference
+      "RFC XXXX: Automatic Peering for SIP Trunks";
+  }
+
+  /* Typedefs */
+
+  typedef sip-option-tag {
+    type enumeration {
+      enum 100rel {
+        description
+          "This option tag is for reliability of provisional responses.
+           When present in a Supported header, it indicates that the UA can
+           send or receive reliable provisional responses. When present in
+           a Require header in a request it indicates that the UAS MUST send
+           all provisional responses reliably. When present in a Require
+           header in a reliable provisional response, it indicates that
+           the response is to be sent reliably.";
+        reference
+          "RFC3262";
+      }
+      enum one-nine-nine {
+        description
+          "This option-tag is for indicating support of the 199 Early
+           Dialog Terminated provisional response code. When present
+           in a Supported header of a request, it indicates that the
+           UAC supports the 199 response code. When present in a Require
+           or Proxy-Require header field of a request, it indicates that
+           the UAS, or proxies, MUST support the 199 response code. It
+           does not require the UAS, or proxies, to actually
+           send 199 responses.";
+        reference
+          "RFC6228";
+      }
+      enum answermode {
+        description
+          "This option tag is for support of the Answer-Mode
+           and Priv-Answer-Mode extensions used to negotiate
+           automatic or manual answering of a request.";
+        reference
+          "RFC5373";
+      }
+     //
+     // Insert here the values from https://www.iana.org/assignments/sip-parameters/sip-parameters.xhtml#sip-parameters-4
+     // 
+    }
+    description
+      "This enumeration type defines mnemonic names of SIP Opiton
+       tags.";
+    reference
+      "RFC 3261: SIP: Session Initiation Protocol,
+       RFC 5727: Change Process for the Session Initiation
+                 Protocol (SIP) and the Real-time Applications
+                 and Infrastructure Area";
+  }
+}
