@@ -52,7 +52,7 @@ module iana-sip-option-tags {
 
   typedef sip-option-tag {
     type enumeration {
-      enum 100rel {
+      enum one-hundred-rel {
         description
           "This option tag is for reliability of provisional responses.
            When present in a Supported header, it indicates that the UA can
