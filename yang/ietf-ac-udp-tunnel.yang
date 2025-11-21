@@ -6,7 +6,7 @@ module ietf-ac-udp-tunnel {
   import ietf-ac-common {
     prefix ac-common;
     reference
-      "RFC 9833: A Common YANG Data Model for Attachment Circuits";
+      "RFC 9833: A Common YANG Data Model for Attachment  Circuits";
   }
   import ietf-ac-svc {
     prefix ac-svc;
