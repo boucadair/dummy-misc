@@ -1,17 +1,17 @@
 module ietf-multicast {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-multicast";
-  prefix ietf-multicast;
+  prefix multicast;
 
   import ietf-yang-types {
     prefix yang;
     reference
-      "RFC 6991: Common YANG Data Types";
+      "RFC 6991: Common YANG Data Types, Section 3";
   }
   import ietf-inet-types {
     prefix inet;
     reference
-      "RFC 6991: Common YANG Data Types";
+      "RFC 6991: Common YANG Data Types, Section 4";
   }
   import ietf-routing-types {
     prefix rt-types;
@@ -28,12 +28,14 @@ module ietf-multicast {
     prefix te-types;
     reference
       "RFC 8776: Common YANG Data Types for Traffic Engineering";
+      //Update to draft-ietf-teas-rfc8776-update if it makes first
+      //to RFC
   }
-  import ietf-bier {
+  /*import ietf-bier {
     prefix bier;
     reference
       "I-D.ietf-bier-bier-yang: YANG Data Model for BIER Protocol";
-  }
+  }*/
   import ietf-sr-policy {
     prefix sr-policy;
     reference
@@ -425,6 +427,28 @@ module ietf-multicast {
        flows have been disabled.";
   }
 
+  identity bier-encapsulation{
+    description
+    "Base identity for BIER encapsulation.";
+  }
+  identity mpls {
+    base bier-encapsulation;
+    description
+      "MPLS encapsulation for bier.";
+  }
+  identity ipv6 {
+    base bier-encapsulation;
+    description
+      "IPv6 encapsulation for bier.";
+  }
+  identity ethernet {
+    base bier-encapsulation;
+      description
+        "Ethernet encapsulation for bier.";
+  }
+
+  /* Groupings */
+
   grouping general-multicast-key {
     description
       "The general multicast keys. They are used to differentiate
@@ -540,7 +564,7 @@ module ietf-multicast {
     }
     leaf bier-encap-type {
       type identityref {
-        base bier:bier-encapsulation;
+        base bier-encapsulation;
       }
       description
         "The BIER encapsulation that can be used in either MPLS
