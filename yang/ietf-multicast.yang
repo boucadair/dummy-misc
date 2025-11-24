@@ -31,17 +31,6 @@ module ietf-multicast {
       //Update to draft-ietf-teas-rfc8776-update if it makes first
       //to RFC
   }
-  /*import ietf-bier {
-    prefix bier;
-    reference
-      "I-D.ietf-bier-bier-yang: YANG Data Model for BIER Protocol";
-  }*/
-  import ietf-sr-policy {
-    prefix sr-policy;
-    reference
-      "I-D.ietf-spring-sr-policy-yang: YANG Data Model for Segment
-       Routing Policy";
-  }
 
   organization
     " IETF MBONED (MBONE Deployment) Working Group";
@@ -674,35 +663,6 @@ module ietf-multicast {
            (PIM-SM): Protocol Specification (Revised)";
         uses pim;
       }
-      case sr-p2mp {
-        if-feature "sr";
-        description
-          "Using SR P2MP as the transport technology.
-           The ingress replication and the treesid
-           function will not be used at the same time.";
-        reference
-          "RFC 8402: Segment Routing Architecture
-           RFC 9524: Segment Routing Replication for Multipoint
-             Service Delivery
-           I-D.ietf-pim-sr-p2mp-policy: Segment Routing
-             Point-to-Multipoint Policy
-           I-D.ietf-spring-sr-policy-yang: YANG Data Model for
-             Segment Routing Policy";
-        leaf-list ir-sr-policies {
-          type leafref {
-            path "/rt:routing/"
-               + "sr-policy:segment-routing/"
-               + "sr-policy:traffic-engineering/"
-               + "sr-policy:attributes/"
-               + "sr-policy:segment-lists/"
-               + "sr-policy:segment-list/"
-               + "sr-policy:name";
-          }
-          description
-            "The segment list used for ingress replication.";
-        }
-      }
-      // sr-p2mp
     }
   }
 
