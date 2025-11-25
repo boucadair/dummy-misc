@@ -564,7 +564,7 @@ module ietf-multicast {
     }
   }
 
-  grouping transport-tech {
+  grouping transport-technology {
     description
       "The transport technology selected for the multicast service.
        For one specific multicast flow.";
