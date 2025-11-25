@@ -156,6 +156,7 @@ module ietf-multicast {
     description
       "The type of the Segment Identifier (SID) of a Replication
        segment is an SR-MPLS label or an SRv6 SID.
+
        The Replication-SID of the Replication segment of a P2MP tree
        instance.";
     reference
@@ -179,7 +180,7 @@ module ietf-multicast {
        encapsulation.";
   }
 
-  identity vxlan {
+  identity tunnel-encap-vxlan {
     base tunnel-encap-type;
     description
       "Indicates VXLAN encapsulation.";
@@ -189,7 +190,7 @@ module ietf-multicast {
                  Networks over Layer 3 Networks";
   }
 
-  identity nvgre {
+  identity tunnel-encap-nvgre {
     base tunnel-encap-type;
     description
       "Indicates Network Virtualization Using Generic Routing
@@ -199,7 +200,7 @@ module ietf-multicast {
                  Routing Encapsulation";
   }
 
-  identity geneve {
+  identity tunnel-encap-geneve {
     base tunnel-encap-type;
     description
       "Indicates Generic Network Virtualization Encapsulation
@@ -217,36 +218,30 @@ module ietf-multicast {
   identity overlay-pim {
     base overlay-type;
     description
-      "Indicates PIM multicast overlay.";
-    reference
-      "I-D.ietf-bier-pim-signaling:
-         PIM Signaling Through BIER Core";
+      "Indicates PIM as multicast overlay.";
   }
 
-  identity mld {
+  identity overlay-mld {
     base overlay-type;
     description
-      "Indicaes MLD as multicast overlay.";
-    reference
-      "I-D.ietf-bier-mld:
-         BIER Ingress Multicast Flow Overlay
-         using Multicast Listener Discovery Protocols";
+      "Indicates Multicast Listener Discovery (MLD) as multicast
+       overlay.";
   }
 
-  identity mld-snooping {
+  identity overlay-mld-snooping {
     base overlay-type;
     description
-      "Using MLD-snooping as multicast overlay technology.";
+      "Indicates MLD-snooping as multicast overlay technology.";
     reference
       "RFC 4541: Considerations for Internet Group Management
                  Protocol (IGMP) and Multicast Listener
                  Discovery (MLD) Snooping Switches";
   }
 
-  identity evpn {
+  identity overlay-evpn {
     base overlay-type;
     description
-      "Using EVPN as multicast overlay technology.";
+      "Indicates Ethernet VPN (EVPN) as multicast overlay technology.";
     reference
       "RFC 7432: BGP MPLS-Based Ethernet VPN
        RFC 9572: Updates on EVPN BUM Procedures
@@ -254,10 +249,10 @@ module ietf-multicast {
                  (BUM) Using Bit Index Explicit Replication (BIER)";
   }
 
-  identity mvpn {
+  identity overlay-mvpn {
     base overlay-type;
     description
-      "Using MVPN as multicast overlay technology.";
+      "Indicates MVPN as multicast overlay technology.";
     reference
       "RFC 6513: Multicast in MPLS/BGP IP VPNs
        RFC 7716: Global Table Multicast with BGP Multicast VPN
@@ -271,60 +266,54 @@ module ietf-multicast {
       "Base identity for the multicast transport.";
   }
 
-  identity bier {
+  identity transport-bier {
     base transport-type;
     description
-      "Using BIER as multicast transport technology.";
+      "Indicates BIER as multicast transport technology.";
     reference
-      "RFC 8279:
-         Multicast Using Bit Index Explicit Replication (BIER)";
+      "RFC 8279: Multicast Using Bit Index Explicit Replication
+                 (BIER)";
   }
 
-  identity bier-te {
+  identity transport-bier-te {
     base transport-type;
     description
-      "Using BIER-TE as multicast transport technology.";
+      "Indicates BIER-TE as multicast transport technology.";
     reference
-      "RFC 9262:
-         Traffic Engineering for Bit Index Explicit Replication
-         (BIER-TE)";
+      "RFC 9262: Traffic Engineering for Bit Index Explicit Replication
+                 (BIER-TE)";
   }
 
-  identity mldp {
+  identity transport-mldp {
     base transport-type;
     description
-      "Using mLDP as multicast transport technology.";
+      "Indicates mLDP as multicast transport technology.";
     reference
-      "RFC 6388:
-         Label Distribution Protocol Extensions
-         for Point-to-Multipoint and Multipoint-to-Multipoint
-         Label Switched Paths";
+      "RFC 6388: Label Distribution Protocol Extensions
+                 for Point-to-Multipoint and Multipoint-to-Multipoint
+                 Label Switched Paths";
   }
 
-  identity rsvp-te-p2mp {
+  identity transport-rsvp-te-p2mp {
     base transport-type;
     description
-      "Using P2MP TE as multicast transport technology.";
+      "Indicates P2MP TE as multicast transport technology.";
     reference
-      "RFC 4875:
-         Extensions to Resource Reservation Protocol
-         - Traffic Engineering (RSVP-TE) for Point-to-Multipoint
-         TE Label Switched Paths (LSPs).";
+      "RFC 4875: Extensions to Resource Reservation Protocol
+                 - Traffic Engineering (RSVP-TE) for Point-to-Multipoint
+                 TE Label Switched Paths (LSPs).";
   }
 
-  identity sr-p2mp {
+  identity transport-sr-p2mp {
     base transport-type;
     description
-      "Using Segment Routing  as multicast transport technology.";
-    reference
-      "I-D.ietf-pim-sr-p2mp-policy:
-         Segment Routing Point-to-Multipoint Policy.";
+      "Indicates SR as multicast transport technology.";
   }
 
-  identity pim {
+  identity transport-pim {
     base transport-type;
     description
-      "Using PIM as multicast transport technology.";
+      "Indicates PIM as multicast transport technology.";
     reference
       "RFC 7761:
          Protocol Independent Multicast - Sparse Mode
@@ -339,52 +328,48 @@ module ietf-multicast {
   identity bgp {
     base underlay-type;
     description
-      "Using BGP as underlay technology to build the multicast
+      "Indicates BGP as underlay technology to build the multicast
        transport layer. For example, using BGP as BIER underlay.";
     reference
-      "I-D.ietf-bier-idr-extensions: BGP Extensions for BIER.";
+      "RFC 4271: A Border Gateway Protocol 4 (BGP-4)";
   }
 
   identity ospf {
     base underlay-type;
     description
-      "Using OSPF as multicast underlay technology.
+      "Indicates OSPF as multicast underlay technology.
        For example, using OSPF as BIER underlay.";
     reference
-      "RFC 8444:
-         OSPFv2 Extensions for Bit Index Explicit Replication (BIER),
-       I-D.ietf-bier-ospfv3-extensions:
-         OSPFv3 Extensions for BIER.";
+      "RFC 8444: OSPFv2 Extensions for Bit Index Explicit Replication
+                 (BIER)";
   }
 
   identity isis {
     base underlay-type;
     description
-      "Using IS-IS as multicast underlay technology.
+      "Indicates IS-IS as multicast underlay technology.
        For example, using IS-IS as BIER underlay.";
     reference
-      "RFC 8401:
-         Bit Index Explicit Replication (BIER) Support via IS-IS";
+      "RFC 8401: Bit Index Explicit Replication (BIER) Support
+                 via IS-IS";
   }
 
   identity babel {
     base underlay-type;
     description
-      "Using BABEL as multicast underlay technology.
+      "Indicates BABEL as multicast underlay technology.
        For example, using BABEL as BIER underlay.";
     reference
-      "RFC 8966: The Babel Routing Protocol
-       I-D.zhang-bier-babel-extensions: BIER in BABEL";
+      "RFC 8966: The Babel Routing Protocol";
   }
 
   identity rift {
     base underlay-type;
     description
-      "Using RIFT as multicast underlay technology.
+      "Indicates RIFT as multicast underlay technology.
        For example, using RIFT as BIER underlay.";
     reference
-      "RFC 9692: RIFT: Routing in Fat Trees.
-       I-D.zzhang-bier-rift: Supporting BIER with RIFT";
+      "RFC 9692: RIFT: Routing in Fat Trees";
   }
 
   identity event-type {
@@ -395,27 +380,27 @@ module ietf-multicast {
   identity up {
     base event-type;
     description
-      "The multicast service works.";
+      "Indicates that the multicast service works.";
   }
 
   identity down {
     base event-type;
     description
-      "There is something wrong with ingress or egress node,
-       and node can't work properlay.";
+      "Indicates that there is an issue with ingress or egress node,
+       and node can not work properlay.";
   }
 
   identity protocol-enabled {
     base event-type;
     description
-      "The protocol that is used for multicast
+      "Indicates that the protocol that is used for multicast
        flows have been enabled.";
   }
 
   identity protocol-disabled {
     base event-type;
     description
-      "The protocol that is used by multicast
+      "Indicates that the protocol that is used by multicast
        flows have been disabled.";
   }
 
@@ -427,19 +412,19 @@ module ietf-multicast {
   identity mpls {
     base bier-encapsulation;
     description
-      "MPLS encapsulation for bier.";
+      "Indicates MPLS encapsulation for BIER.";
   }
 
   identity ipv6 {
     base bier-encapsulation;
     description
-      "IPv6 encapsulation for bier.";
+      "Indicates IPv6 encapsulation for BIER.";
   }
 
   identity ethernet {
     base bier-encapsulation;
       description
-        "Ethernet encapsulation for bier.";
+        "Indicates Ethernet encapsulation for BIER.";
   }
 
   /* Groupings */
