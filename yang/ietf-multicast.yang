@@ -219,6 +219,9 @@ module ietf-multicast {
     base overlay-type;
     description
       "Indicates PIM as multicast overlay.";
+    reference
+      "RFC 7761: Protocol Independent Multicast - Sparse Mode
+                 (PIM-SM): Protocol Specification (Revised)";
   }
 
   identity overlay-mld {
@@ -226,6 +229,8 @@ module ietf-multicast {
     description
       "Indicates Multicast Listener Discovery (MLD) as multicast
        overlay.";
+    reference
+      "RFC 2710: Multicast Listener Discovery (MLD) for IPv6";
   }
 
   identity overlay-mld-snooping {
@@ -315,9 +320,8 @@ module ietf-multicast {
     description
       "Indicates PIM as multicast transport technology.";
     reference
-      "RFC 7761:
-         Protocol Independent Multicast - Sparse Mode
-         (PIM-SM): Protocol Specification (Revised).";
+      "RFC 7761: Protocol Independent Multicast - Sparse Mode
+                 (PIM-SM): Protocol Specification (Revised).";
   }
 
   identity underlay-type {
@@ -328,7 +332,7 @@ module ietf-multicast {
   identity bgp {
     base underlay-type;
     description
-      "Indicates BGP as underlay technology to build the multicast
+      "Indicates BGP as underlay to build the multicast
        transport layer. For example, using BGP as BIER underlay.";
     reference
       "RFC 4271: A Border Gateway Protocol 4 (BGP-4)";
@@ -337,7 +341,7 @@ module ietf-multicast {
   identity ospf {
     base underlay-type;
     description
-      "Indicates OSPF as multicast underlay technology.
+      "Indicates OSPF as multicast underlay.
        For example, using OSPF as BIER underlay.";
     reference
       "RFC 8444: OSPFv2 Extensions for Bit Index Explicit Replication
@@ -347,7 +351,7 @@ module ietf-multicast {
   identity isis {
     base underlay-type;
     description
-      "Indicates IS-IS as multicast underlay technology.
+      "Indicates IS-IS as multicast underlay.
        For example, using IS-IS as BIER underlay.";
     reference
       "RFC 8401: Bit Index Explicit Replication (BIER) Support
@@ -357,7 +361,7 @@ module ietf-multicast {
   identity babel {
     base underlay-type;
     description
-      "Indicates BABEL as multicast underlay technology.
+      "Indicates BABEL as multicast underlay.
        For example, using BABEL as BIER underlay.";
     reference
       "RFC 8966: The Babel Routing Protocol";
@@ -366,7 +370,7 @@ module ietf-multicast {
   identity rift {
     base underlay-type;
     description
-      "Indicates RIFT as multicast underlay technology.
+      "Indicates Routing in Fat Trees (RIFT) as multicast underlay.
        For example, using RIFT as BIER underlay.";
     reference
       "RFC 9692: RIFT: Routing in Fat Trees";
@@ -432,20 +436,20 @@ module ietf-multicast {
   grouping general-multicast-key {
     description
       "The general multicast keys. They are used to differentiate
-       multicast service.";
+       multicast services.";
     leaf source-address {
       type ip-multicast-source-address;
       description
         "The IP source address of the multicast flow. The
-         value set to * means that the receiver interests
-         in all source that relevant to one given group.";
+         value set to '*' means that the receiver interests
+         in all sources that relevant to one given group.";
     }
     leaf group-address {
       type rt-types:ip-multicast-group-address;
       mandatory true;
       description
-        "The IP group address of multicast flow. This
-         type represents a version-neutral IP multicast group
+        "The IP group address of multicast flow. This type
+         represents a version-neutral IP multicast group
          address. The format of the textual representation
          implies the IP version.";
       reference
@@ -456,11 +460,11 @@ module ietf-multicast {
   grouping optional-multicast-key {
     description
       "The optional multicast keys. They are used to differentiate
-       multicast service.";
+       multicast services.";
     leaf vpn-rd {
       type rt-types:route-distinguisher;
       description
-        "A Route Distinguisher is used to differentiate
+        "A Route Distinguisher (RD) is used to differentiate
          routes from different MVPNs.";
       reference
         "RFC 8294: Common YANG Data Types for the Routing Area
@@ -469,9 +473,9 @@ module ietf-multicast {
     leaf mac-address {
       type yang:mac-address;
       description
-        "The mac address of flow. In the EVPN situation, the L2
+        "The MAC address of flow. In the EVPN situation, the L2
          flow that is called BUM (Broadcast, Unknown Unicast, 
-         Multicast) can be sent to the other PEs that are in
+         Multicast) can be sent to other PEs that are in
          a same broadcast domain.";
       reference
         "RFC 6991: Common YANG Data Types
@@ -487,22 +491,23 @@ module ietf-multicast {
   }
 
   // multicast-key
+  // --Check if this grouping was used.
 
   grouping encap-type {
     description
-      "The encapsulation type used for flow forwarding.
+      "The encapsulation type used for BIER flow forwarding.
        This encapsulation acts as the inner encapsulation,
-       as compare to the outer multicast-transport encapsulation.";
+       as compared to the outer multicast-transport encapsulation.";
     choice encap-type {
       case mpls {
         description
-          "The BIER forwarding depends on mpls.";
+          "The BIER forwarding depends on MPLS.";
         reference
           "RFC 8296: Encapsulation for Bit Index Explicit
                      Replication (BIER) in MPLS and Non-MPLS
                      Networks.";
       }
-      case eth {
+      case ethernet {
         description
           "The BIER forwarding depends on ethernet.";
         reference
@@ -513,8 +518,6 @@ module ietf-multicast {
       case ipv6 {
         description
           "The BIER forwarding depends on IPv6.";
-        reference
-          "I-D.ietf-bier-bierin6: BIER in IPv6 (BIERin6)";
       }
       description
         "The encapsulation type in BIER.";
@@ -536,12 +539,12 @@ module ietf-multicast {
     leaf bitstringlength {
       type uint16;
       description
-        "The bitstringlength used by BIER forwarding.";
+        "The BitStringLength used by BIER forwarding.";
     }
     leaf set-identifier {
       type uint16;
       description
-        "The set identifier used by the multicast flow.";
+        "The Set Identifier (SI) used by the multicast flow.";
     }
     leaf bier-encap-type {
       type identityref {
@@ -562,20 +565,19 @@ module ietf-multicast {
         base transport-type;
       }
       description
-        "The type of transport technology";
+        "Specifies the type of transport technology.";
     }
     choice transport-tech-type {
       description
-        "The type of transport technology";
+        "Indicares the type of transport technology.";
       case bier {
         if-feature "bier";
         description
-          "Using BIER as the transport technology.
-           The parameters are consistent with the definition in
-           BIER YANG data model.";
+          "Using BIER as the transport technology.";
         reference
           "RFC 8296: Encapsulation for Bit Index Explicit
-             Replication (BIER) in MPLS and Non-MPLS Networks";
+                     Replication (BIER) in MPLS and Non-MPLS
+                     Networks";
         uses bier-key;
       }
       case bier-te {
@@ -591,7 +593,7 @@ module ietf-multicast {
           leaf name {
             type string;
             description
-              "The name of the bitstring";
+              "The name of the BitString.";
           }
           list bier-te-adj {
             key "adj-id";
@@ -601,19 +603,19 @@ module ietf-multicast {
                 "The link adjacency ID used for BIER TE forwarding.";
             }
             description
-              "The adjacencies ID used for BIER TE bitstring
+              "The adjacencies ID used for BIER TE BitString
                encapsulation.";
           }
           description
-            "The bitstring name and detail used for BIER TE
-             forwarding encapsulation. One or more bitstring can be
-             used for backup path.";
+            "The BitString name and detail used for BIER TE
+             forwarding encapsulation. One or more BitStrings can be
+             used for backup paths.";
         }
       }
       case mldp {
         if-feature "mldp";
         description
-          "Using MLDP as the transport technology.";
+          "MLDP is used as the transport technology.";
         reference
           "RFC 6388: Label Distribution Protocol Extensions
                      for Point-to-Multipoint and Multipoint-to-Multipoint
@@ -622,7 +624,7 @@ module ietf-multicast {
       case rsvp-te-p2mp {
         if-feature "p2mp-te";
         description
-          "Using RSVP TE P2MP as the transport technology.";
+          "RSVP TE P2MP is used as the transport technology.";
         reference
           "RFC 4875: Extensions to Resource Reservation Protocol -
                      Traffic Engineering (RSVP-TE) for Point-to-Multipoint
@@ -638,7 +640,7 @@ module ietf-multicast {
       case pim {
         if-feature "pim";
         description
-          "Using PIM as the transport technology.";
+          "PIM is used as the transport technology.";
         reference
           "RFC 7761: Protocol Independent Multicast - Sparse Mode
                      (PIM-SM): Protocol Specification (Revised)";
@@ -654,21 +656,21 @@ module ietf-multicast {
       "The underlay technology selected for the transport layer.
        The underlay technology has no straight relationship with
        the multicast overlay, it is used for transport path
-       building, for example BIER forwarding path building.";
+       building, for example, BIER forwarding path building.";
     leaf type {
       type identityref {
         base underlay-type;
       }
       description
-        "The type of underlay technology";
+        "Specifies the type of underlay technology.";
     }
     choice underlay-technology-type {
       description
-        "The type of underlay technology";
+        "A choice for the underlay type.";
       case ospf {
         description
           "Using OSPF as the underlay technology.
-           If OSPF protocol supports multiple topology feature,
+           If OSPF  supports multiple topology feature,
            the associated topology name may be assigned.
            In case the topology name is assigned, the specific
            OSPF topology is used for underly to building the
@@ -708,6 +710,7 @@ module ietf-multicast {
   // Underlay Technology
 
   /*overlay*/
+
   grouping overlay-technology {
     container dynamic-overlay {
       leaf type {
@@ -715,14 +718,14 @@ module ietf-multicast {
           base overlay-type;
         }
         description
-          "The type of overlay technology";
+          "Indicares the type of overlay technology.";
       }
       choice overlay-technology-type {
         description
-          "The type of overlay technology";
+          "Choice for the overlay type.";
         case evpn {
           description
-            "EVPN technology is used for multicast overlay.";
+            "EVPN is used for multicast overlay.";
           reference
             "RFC 7432: BGP MPLS-Based Ethernet VPN
              RFC 9624: EVPN Broadcast, Unknown Unicast, or
@@ -733,9 +736,6 @@ module ietf-multicast {
           description
             "MLD/IGMP can be used as multicast overlay
              when BIER is used as transport technology.";
-          reference
-            "I-D:ietf-bier-mld: BIER Ingress Multicast Flow Overlay
-                      using Multicast Listener Discovery Protocols";
           leaf mld-instance-group {
             type rt-types:ip-multicast-group-address;
             description
@@ -774,9 +774,7 @@ module ietf-multicast {
              when BIER is used as transport technology.";
           reference
             "RFC 7761: Protocol Independent Multicast - Sparse Mode
-                       (PIM-SM): Protocol Specification (Revised)
-             I-D.ietf-bier-pim-signaling: PIM Signaling Through BIER
-                       Core";
+                       (PIM-SM): Protocol Specification (Revised)";
         }
       }
       description
@@ -956,9 +954,9 @@ module ietf-multicast {
     }
     description
       "Notification events for the ingress or egress nodes. Like
-       node failure, overlay/ transport/ underlay module
-       loading/ unloading. And the potential failure about some
+       node failure, overlay/transport/underlay module
+       loading/unloading. And the potential failure about some
        multicast flows and associated
-       overlay/ transport/ underlay technologies.";
+       overlay/transport/underlay technologies.";
   }
 }
