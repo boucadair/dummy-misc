@@ -158,7 +158,7 @@ module ietf-multicast {
        segment is an SR-MPLS label or an SRv6 SID.
        The Replication-SID of the Replication segment of a P2MP tree
        instance.";
-    Reference
+    reference
       "RFC 9524: Segment Routing Replication for Multipoint Service
                  Delivery";
   }
