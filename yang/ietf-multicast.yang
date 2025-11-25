@@ -160,7 +160,7 @@ module ietf-multicast {
        instance.";
     Reference
       "RFC 9524: Segment Routing Replication for Multipoint Service
-                 Delivery"
+                 Delivery";
   }
 
   /*
