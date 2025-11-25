@@ -28,8 +28,6 @@ module ietf-multicast {
     prefix te-types;
     reference
       "RFC 8776: Common YANG Data Types for Traffic Engineering";
-      //Update to draft-ietf-teas-rfc8776-update if it makes first
-      //to RFC
   }
 
   organization
@@ -101,7 +99,8 @@ module ietf-multicast {
 
   feature mldp {
     description
-      "Indicates support for Multipoint LDP (MLDP).";
+      "Indicates support for Multipoint Label Distribution
+       Protocol (MLDP).";
     reference
       "RFC 6388: Label Distribution Protocol Extensions
                  for Point-to-Multipoint and 
@@ -131,7 +130,7 @@ module ietf-multicast {
   }
 
   /*
-   * typedefs
+   * Typedefs
    */
 
   typedef ip-multicast-source-address {
@@ -139,7 +138,7 @@ module ietf-multicast {
       type enumeration {
         enum * {
           description
-            "Any source address.";
+            "Any source IP address.";
         }
       }
       type inet:ipv4-address;
@@ -156,7 +155,12 @@ module ietf-multicast {
     }
     description
       "The type of the Segment Identifier (SID) of a Replication
-       segment is an SR-MPLS label or an SRv6 SID.";
+       segment is an SR-MPLS label or an SRv6 SID.
+       The Replication-SID of the Replication segment of a P2MP tree
+       instance.";
+    Reference
+      "RFC 9524: Segment Routing Replication for Multipoint Service
+                 Delivery"
   }
 
   /*
@@ -175,7 +179,7 @@ module ietf-multicast {
        encapsulation.";
   }
 
-  identity tunnel-encap-vxlan {
+  identity vxlan {
     base tunnel-encap-type;
     description
       "Indicates VXLAN encapsulation.";
@@ -185,7 +189,7 @@ module ietf-multicast {
                  Networks over Layer 3 Networks";
   }
 
-  identity tunnel-encap-nvgre {
+  identity nvgre {
     base tunnel-encap-type;
     description
       "Indicates Network Virtualization Using Generic Routing
@@ -195,7 +199,7 @@ module ietf-multicast {
                  Routing Encapsulation";
   }
 
-  identity tunnel-encap-geneve {
+  identity geneve {
     base tunnel-encap-type;
     description
       "Indicates Generic Network Virtualization Encapsulation
