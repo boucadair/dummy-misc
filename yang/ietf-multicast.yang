@@ -62,14 +62,18 @@ module ietf-multicast {
      Relating to IETF Documents
      (https://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX; see the
-     RFC itself for full legal notices.
-
      The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
      NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
      'MAY', and 'OPTIONAL' in this document are to be interpreted as
      described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.";
+     they appear in all capitals, as shown here.
+
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry group
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
 
   revision 2025-05-06 {
     description
@@ -100,7 +104,7 @@ module ietf-multicast {
   feature mldp {
     description
       "Indicates support for Multipoint Label Distribution
-       Protocol (MLDP).";
+       Protocol (mLDP).";
     reference
       "RFC 6388: Label Distribution Protocol Extensions
                  for Point-to-Multipoint and 
@@ -168,11 +172,13 @@ module ietf-multicast {
    * Identities
    */
 
+  
+  /* Med: this is not used in the module
   identity multicast-service {
     base rt:control-plane-protocol;
     description
       "Base identity for the multicast service.";
-  }
+  }*/
 
   identity tunnel-encap-type {
     description
@@ -183,7 +189,8 @@ module ietf-multicast {
   identity tunnel-encap-vxlan {
     base tunnel-encap-type;
     description
-      "Indicates VXLAN encapsulation.";
+      "Indicates Virtual eXtensible Local Area Network (VXLAN)
+       encapsulation.";
     reference
       "RFC 7348: Virtual eXtensible Local Area Network (VXLAN):
                  A Framework for Overlaying Virtualized Layer 2
@@ -257,7 +264,7 @@ module ietf-multicast {
   identity overlay-mvpn {
     base overlay-type;
     description
-      "Indicates MVPN as multicast overlay technology.";
+      "Indicates Multicast VPN (MVPN) as multicast overlay technology.";
     reference
       "RFC 6513: Multicast in MPLS/BGP IP VPNs
        RFC 7716: Global Table Multicast with BGP Multicast VPN
@@ -274,7 +281,8 @@ module ietf-multicast {
   identity transport-bier {
     base transport-type;
     description
-      "Indicates BIER as multicast transport technology.";
+      "Indicates Bit Index Explicit Replication (BIER) as multicast
+       transport technology.";
     reference
       "RFC 8279: Multicast Using Bit Index Explicit Replication
                  (BIER)";
@@ -378,13 +386,13 @@ module ietf-multicast {
 
   identity event-type {
     description
-      "The events of the multicast service.";
+      "Base identity for events of the multicast service.";
   }
 
   identity up {
     base event-type;
     description
-      "Indicates that the multicast service works.";
+      "Indicates that the multicast service is up and running.";
   }
 
   identity down {
@@ -491,8 +499,8 @@ module ietf-multicast {
   }
 
   // multicast-key
-  // --Check if this grouping was used.
-
+  //Med: Check if this grouping is need. This is not used.
+ /*
   grouping encap-type {
     description
       "The encapsulation type used for BIER flow forwarding.
@@ -522,9 +530,8 @@ module ietf-multicast {
       description
         "The encapsulation type in BIER.";
     }
-  }
+  } */
 
-  // encap-type
   grouping bier-key {
     description
       "The key parameters set for BIER/BIER TE forwarding.";
@@ -931,7 +938,7 @@ module ietf-multicast {
         base event-type;
       }
       description
-        "The event type.";
+        "Reports the event type.";
     }
     container multicast-key {
       uses general-multicast-key;
