@@ -499,8 +499,7 @@ module ietf-multicast {
   }
 
   // multicast-key
-  //Med: Check if this grouping is need. This is not used.
- /*
+
   grouping encap-type {
     description
       "The encapsulation type used for BIER flow forwarding.
@@ -530,7 +529,7 @@ module ietf-multicast {
       description
         "The encapsulation type in BIER.";
     }
-  } */
+  }
 
   grouping bier-key {
     description
