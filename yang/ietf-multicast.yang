@@ -499,7 +499,7 @@ module ietf-multicast {
   }
 
   // multicast-key
-
+  /* Med: Not used. check if this is needed 
   grouping encap-type {
     description
       "The encapsulation type used for BIER flow forwarding.
@@ -529,7 +529,7 @@ module ietf-multicast {
       description
         "The encapsulation type in BIER.";
     }
-  }
+  }*/
 
   grouping bier-key {
     description
@@ -818,6 +818,10 @@ module ietf-multicast {
                  (PIM-SM): Protocol Specification (Revised).";
   }
 
+  /*
+   * Main container
+   */ 
+
   container multicast-service {
     description
       "The model of multicast YANG data. Include keys, overlay,
@@ -924,12 +928,14 @@ module ietf-multicast {
         uses underlay-technology;
       }
       description
-        "The model of multicast YANG data. Include keys,
-         overlay, transport and underlay.";
+        "The structure of multicast service. Include keys,
+         overlay, transport, and underlay.";
     }
   }
 
-  /*Notifications*/
+  /*
+   * Notifications
+   */ 
 
   notification ingress-egress-event {
     leaf event-type {
