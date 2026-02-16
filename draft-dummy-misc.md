@@ -45,6 +45,19 @@ TODO Abstract
 
 TODO Introduction
 
+~~~ protocol-aasvg
+Source:16
+Reserved:40
+TTL:8
+~~~
+{: artwork-svg-options="--spaces=2"}
+
+~~~ protocol-aasvg
+0x33AA: 16
+reason-code:16
+pen:32
+~~~
+{: artwork-svg-options="--spaces=2"}
 
 # Conventions and Definitions
 
