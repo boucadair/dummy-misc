@@ -1,0 +1,90 @@
+module ietf-scheduled-link-bandwidth {
+  yang-version 1.1;
+  namespace "http://example.com/example-scheduled-link-bandwidth";
+  prefix "ex-scattr";
+
+  import ietf-network {
+    prefix "nw";
+    reference
+      "RFC 8345: A YANG Data Model for Network Topologies";
+  }
+
+  import ietf-schedule {
+    prefix "schedule";
+    reference
+      "RFC 9922: A YANG Data Model for Scheduling";
+  }
+
+  organization
+    "Example, Inc.";
+
+  contact
+    "Support at example.com";
+
+  description
+    "Example of a module defining a scheduled link bandwidth.";
+
+  revision "2023-01-19" {
+    description
+      "Initial version.";
+    reference
+      "RFC 9922: A YANG Data Model for Scheduling";
+    }
+
+  grouping link-bandwidth-grouping {
+    description
+      "Grouping of the link bandwidth definition.";
+    leaf scheduled-bandwidth {
+      type uint64;
+      units "Kbps";
+      description
+        "Bandwidth values, expressed in kilobits per second.";
+    }
+  }
+
+  container link-attributes {
+    description
+      "Definition of link attributes.";
+    list link {
+      key "source-node destination-node";
+      description
+        "Definition of link attributes.";
+      leaf source-node {
+        type nw:node-id;
+        description
+          "Indicates the source node identifier.";
+      }
+      leaf destination-node {
+        type nw:node-id;
+        description
+          "Indicates the source node identifier.";
+      }
+
+      leaf default-bandwidth {
+        type uint64;
+        units "Kbps";
+        description
+          "Bandwidth value used for periods that don't match
+           a schedule.";
+      }
+
+      choice time-variant-type {
+        description
+          "Controls the schedule type.";
+        case period {
+          uses schedule:period-of-time;
+        }
+        case recurrence {
+          uses schedule:recurrence-utc-with-periods {
+            augment "period-timeticks" {
+              description
+                "Specifies the attributes inside each
+                 'period-timeticks' entry.";
+              uses link-bandwidth-grouping;
+            }
+          }
+        }
+      }
+    }
+  }
+}
