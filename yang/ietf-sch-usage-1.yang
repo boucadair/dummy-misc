@@ -1,0 +1,16 @@
+module ietf-sch-usage-1 {
+  yang-version 1.1;
+  namespace "http://example.com/example-sch-usage-1";
+  prefix "ex-schu-1";
+
+  import ietf-schedule {
+    prefix "schedule";
+  }
+
+  container generic-schedule-params {
+    uses schedule:generic-schedule-params;
+  }
+  container schedule-status {
+    uses schedule:schedule-status;
+  }
+}
