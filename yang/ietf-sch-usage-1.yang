@@ -3,6 +3,10 @@ module ietf-sch-usage-1 {
   namespace "http://example.com/example-sch-usage-8";
   prefix "ex-schu-8";
 
+  import ietf-schedule {
+    prefix "schedule";
+  }
+
   organization "Example, Inc.";
   contact "Support at example.com";
   description "An example.";
