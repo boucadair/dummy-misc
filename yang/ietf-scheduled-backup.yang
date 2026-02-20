@@ -1,0 +1,120 @@
+module ietf-scheduled-backup {
+  yang-version 1.1;
+  namespace "http://example.com/example-scheduled-backup";
+  prefix "ex-scback";
+
+  import ietf-inet-types {
+    prefix "inet";
+  }
+
+  import ietf-schedule {
+    prefix "schedule";
+  }
+
+  organization
+    "Example, Inc.";
+
+  contact
+    "Support at example.com";
+
+  description
+    "Example of a module defining a scheduled-based backup
+     operation.";
+
+  revision "2023-01-19" {
+    description
+      "Initial version.";
+    reference
+      "RFC 9922: A YANG Data Model for Scheduling.";
+    }
+
+  container scheduled-backup-tasks {
+    description
+      "A container for backing up all current running configurations
+       on the device.";
+    list tasks {
+      key "task-id";
+      description
+        "The list of backing up tasks on this device.";
+      leaf task-id {
+        type string;
+        description
+          "The task identifier that uniquely identifies a scheduled
+           backup task.";
+      }
+      choice local-or-remote {
+        description
+          "Specifies whether the configuration to be backed up is
+           local or remote.";
+        case local {
+          description
+            "Configuration parameters for the backing up of local
+             devices.";
+          leaf local {
+            type empty;
+            description
+              "The parameter specifies the configuration to be
+               backed up is on the local device.";
+          }
+        }
+        case remote {
+          description
+            "Configuration parameters for backing up of remote
+             devices.";
+          leaf remote {
+            type inet:domain-name;
+            description
+              "The parameter specifies the remote device domain
+               name.";
+          }
+        }
+      }
+
+      container basic-recurrence-schedules {
+        if-feature schedule:basic-recurrence;
+        description
+          "Basic recurrence schedule specification, which only
+           applies when the schedule:basic-recurrence feature
+           is supported.";
+        leaf schedule-id {
+          type string;
+          description
+            "The schedule identifier for this recurrence rule.";
+        }
+        uses schedule:recurrence-basic {
+          refine frequency {
+            mandatory true;
+          }
+          refine interval {
+            default 1;
+          }
+        }
+      }
+
+      container icalendar-recurrence-schedules {
+        if-feature schedule:icalendar-recurrence;
+        description
+          "Basic recurrence schedule specification, which only
+           applies when the schedule:icalendar-recurrence feature
+           is supported.";
+        leaf schedule-id {
+          type string;
+          description
+            "The schedule identifier for this recurrence rule.";
+        }
+        uses schedule:icalendar-recurrence {
+          refine workweek-start {
+            default monday;
+          }
+        }
+      }
+    }
+
+    list schedule-set {
+      key "schedule-name";
+      description
+        "Schedule status list for the backup tasks.";
+      uses schedule:schedule-status-with-name;
+    }
+  }
+}
