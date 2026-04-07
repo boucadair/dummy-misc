@@ -17,6 +17,8 @@ module ietf-tvr-topology {
 
   import ietf-tvr-schedule {
     prefix "tvr-schd";
+    reference
+      "RFC XXXX: A YANG Data Model for Scheduled Attributes";
   }
 
   organization
@@ -64,7 +66,7 @@ module ietf-tvr-topology {
     description
       "Initial revision";
     reference
-      "RFC XXXX: YANG Data Model for Scheduled Attributes";
+      "RFC XXXX: A YANG Data Model for Scheduled Attributes";
   }
 
   container topology-schedule {
@@ -81,7 +83,7 @@ module ietf-tvr-topology {
            may be the same as the node-id defined in the ietf-network
            module defined in RFC 8345.";
       }
-      container available {
+      container available {   //Med: why not defining this as reusable grouping? 
         description
           "The time at which this node becomes available.";
 
@@ -183,7 +185,7 @@ module ietf-tvr-topology {
             range "0..16777215";
           }
           description
-            "The default one-way delay in microseconds.";
+            "The default one-way delay in microseconds."; //Med: should be defined with units
         }
       }
     }
